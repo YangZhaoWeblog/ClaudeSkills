@@ -1,0 +1,41 @@
+{
+  "eval_name": "bayes-formula",
+  "variant": "without_skill",
+  "expectations": [
+    {
+      "text": "has_latex_formula",
+      "passed": true,
+      "evidence": "Found multiple LaTeX formulas including $$P(A|B) = \\frac{P(B|A) \\cdot P(A)}{P(B)}$$, inline formulas like $P(A)$, $P(B|A)$, and the full total probability expansion. Also contains applied formulas with the spam email example."
+    },
+    {
+      "text": "five_stages_present",
+      "passed": false,
+      "evidence": "The output does not follow a 5-stage structure. Instead it uses custom sections: '先把公式摆出来' (formula first), '一句话核心思想', '用一个故事来理解', '拆解公式的每一块', '为什么分母让人头大', '用人数思维再理解一遍', '贝叶斯公式的本质', '几个常见误区', '最后总结'. There are no headers labeled '阶段 1' through '阶段 5' or any equivalent numbered stage structure."
+    },
+    {
+      "text": "has_concrete_scenario",
+      "passed": false,
+      "evidence": "The output starts with the formula itself ('先把公式摆出来'), showing $$P(A|B) = ...$$ as the very first content element. A concrete scenario (spam email filtering) appears later under '用一个故事来理解', but it does NOT come before the formula. The formula is presented first, then explained with a scenario, which is the opposite of the required order."
+    },
+    {
+      "text": "has_visual_model",
+      "passed": true,
+      "evidence": "The section '用"人数思维"再理解一遍（不用公式）' builds a visual model using 1000 emails with a tree diagram (ASCII art showing 200 spam / 800 normal, subdivided by whether they contain '免费'). This is a concrete, symbol-free intuitive model. However, it appears late in the output, after the formula and algebraic derivation."
+    },
+    {
+      "text": "has_role_explanation",
+      "passed": false,
+      "evidence": "The output has a table mapping symbols to names and meanings (先验概率, 似然度, etc.) with brief 'intuitive meaning' (直觉含义) and story mapping. However, it only provides basic labels and simple descriptions (e.g., P(A) = '在看到任何证据之前，你对 A 的判断'). It does not explain the deeper 'roles' of variables — how they interact structurally, their 'personalities', or what happens when they change. The explanations stay at the label level rather than exploring functional roles."
+    },
+    {
+      "text": "has_extreme_values",
+      "passed": false,
+      "evidence": "The output does not contain any section testing extreme or boundary values (0, 1, infinity). There is no analysis of what happens when P(A)→0, P(A)→1, when the test is perfect, or when the test is random. The 'common misconceptions' section touches on some conceptual points but does not systematically test the formula with extreme values."
+    },
+    {
+      "text": "has_bigger_picture",
+      "passed": false,
+      "evidence": "The output mentions a few applications (spam filters, medical diagnosis, search engines, self-driving cars) and notes that Bayesian thinking is used in daily decisions. However, it does not connect the formula to a larger knowledge network — there is no discussion of its relationship to conditional probability foundations, Bayesian vs frequentist statistics, information theory, machine learning frameworks, or its position in the broader mathematical landscape. The connections remain at the surface application level."
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "eval_name": "euler-identity",
+  "variant": "with_skill",
+  "expectations": [
+    {
+      "text": "has_latex_formula",
+      "passed": true,
+      "evidence": "Found multiple LaTeX formulas including $$e^{i\\pi} + 1 = 0$$, $$e^{i\\theta} = \\cos\\theta + i\\sin\\theta$$, inline formulas like $e$, $i$, $\\pi$, $e^{i\\pi}$, and the bonus result $$i^i = e^{-\\pi/2} \\approx 0.2078...$$"
+    },
+    {
+      "text": "five_stages_present",
+      "passed": true,
+      "evidence": "All 5 stages are clearly labeled as H2 headers: '## 阶段 1：困惑与缺口', '## 阶段 2：直觉模型', '## 阶段 3：符号映射', '## 阶段 4：极限拷问', '## 阶段 5：升维视角'"
+    },
+    {
+      "text": "has_concrete_scenario",
+      "passed": true,
+      "evidence": "Stage 1 opens with a vivid concrete scenario: 'Imagine you are a sailor, standing at a dock of a huge circular harbor.' It describes two ways to cross — straight across the diameter or along the curved seawall — then introduces a 'magical engine' that constantly deflects you leftward, producing circular motion. The formula does not appear until Stage 3, well after the scenario is established."
+    },
+    {
+      "text": "has_visual_model",
+      "passed": true,
+      "evidence": "Stage 2 ('直觉模型') builds an elaborate symbol-free visual model using the complex plane. It describes a point starting at position 1 (3 o'clock) on a unit circle, introduces the key insight that 'multiplying by i = rotating 90 degrees counterclockwise' through a 4-step multiplication chain (1→i→-1→-i→1), and constructs a dynamic animation of a glowing dot sliding along the unit circle. The visual model is built before any formal formula appears."
+    },
+    {
+      "text": "has_role_explanation",
+      "passed": true,
+      "evidence": "Stage 3 contains a detailed table mapping each symbol to its identity, role, and corresponding intuitive model element. For example: e is the 'growth engine' describing continuous compound growth; i is the 'rudder' that turns 'charging forward' into 'turning sideways' (multiply by i = rotate 90°); π is the 'journey length' determining how far along the unit circle you travel. The structural analysis section further explains the exponential as the 'verb' of the formula, iθ as the 'core dial', and the unit circle constraint as the 'normalization constraint'."
+    },
+    {
+      "text": "has_extreme_values",
+      "passed": true,
+      "evidence": "Stage 4 ('极限拷问') contains a comprehensive extreme values table testing θ at 0, π/2, π, 3π/2, 2π, and →∞. Each case shows the result, meaning, and clock position. Also includes a counter-intuitive check addressing why e^(iπ) doesn't explode like real powers of e, with a modulus verification |e^{iθ}| = 1. Discusses model boundaries for complex exponents and higher-dimensional extensions."
+    },
+    {
+      "text": "has_bigger_picture",
+      "passed": true,
+      "evidence": "Stage 5 ('升维视角') maps the identity to 5 mathematical 'roads' converging at one intersection: Analysis (e from calculus), Algebra (i from extending number systems), Geometry (π from circles), Arithmetic (1 and 0 as identity elements), and Addition itself. Connects to deeper symmetry (exponential = trigonometric functions), and links to physics: quantum mechanics (Schrödinger wave function), electrical engineering (AC analysis), and Fourier Transform (signal processing, image compression, speech recognition). Ends with a hook: i^i = e^{-π/2} ≈ 0.2078."
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "eval_id": 3,
+  "eval_name": "schrodinger-equation",
+  "prompt": "薛定谔方程到底说了什么？为什么它是量子力学的核心？",
+  "assertions": [
+    {
+      "name": "has_concrete_scenario",
+      "description": "阶段1：是否从经典物理的局限性（如双缝实验等）制造困惑缺口",
+      "type": "qualitative"
+    },
+    {
+      "name": "has_visual_model",
+      "description": "阶段2：是否构建了波/振动/弦相关的无符号直觉模型",
+      "type": "qualitative"
+    },
+    {
+      "name": "has_latex_formula",
+      "description": "阶段3：是否包含 LaTeX 格式的薛定谔方程",
+      "type": "programmatic"
+    },
+    {
+      "name": "has_role_explanation",
+      "description": "阶段3：是否解释了 ψ、ℏ、哈密顿算符等各项的角色",
+      "type": "qualitative"
+    },
+    {
+      "name": "has_intuition_boundary",
+      "description": "阶段4：是否明确指出直觉类比的边界（如波函数坍缩无法用经典直觉解释）",
+      "type": "qualitative"
+    },
+    {
+      "name": "has_bigger_picture",
+      "description": "阶段5：是否连接到量子场论、狄拉克方程或更大物理学图景",
+      "type": "qualitative"
+    },
+    {
+      "name": "five_stages_present",
+      "description": "输出是否明确包含5个阶段的结构",
+      "type": "programmatic"
+    }
+  ]
+}

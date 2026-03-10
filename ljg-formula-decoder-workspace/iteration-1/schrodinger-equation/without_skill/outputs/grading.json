@@ -1,0 +1,41 @@
+{
+  "eval_name": "schrodinger-equation",
+  "variant": "without_skill",
+  "expectations": [
+    {
+      "text": "has_latex_formula",
+      "passed": true,
+      "evidence": "Found multiple LaTeX formulas including $$i\\hbar \\frac{\\partial}{\\partial t} \\Psi(\\mathbf{r}, t) = \\hat{H} \\Psi(\\mathbf{r}, t)$$, the expanded Hamiltonian $$\\hat{H} = -\\frac{\\hbar^2}{2m} \\nabla^2 + V(\\mathbf{r}, t)$$, the time-independent form $$\\hat{H} \\psi(\\mathbf{r}) = E \\psi(\\mathbf{r})$$, and inline formulas like $\\Psi$, $\\hbar$, $E_n$."
+    },
+    {
+      "text": "five_stages_present",
+      "passed": false,
+      "evidence": "The output does not follow a 5-stage structure. Instead it uses Chinese-numbered sections: '一、薛定谔方程是什么', '二、薛定谔方程到底说了什么', '三、为什么它是量子力学的核心', '四、薛定谔方程的局限性', '五、总结'. These are 5 topical sections but not the expected stage/phase structure (阶段 1-5). There are no headers labeled '阶段 1' through '阶段 5' or equivalent numbered stages."
+    },
+    {
+      "text": "has_concrete_scenario",
+      "passed": false,
+      "evidence": "The output starts with a textbook-style definition: '薛定谔方程（Schrödinger Equation）是奥地利物理学家埃尔温·薛定谔于1926年提出的一个偏微分方程'. It immediately presents the formula and then explains variables. There is no concrete real-world scenario, story, or vivid situation before the formula. The entire piece reads as an academic explanation rather than starting from a relatable human experience."
+    },
+    {
+      "text": "has_visual_model",
+      "passed": false,
+      "evidence": "The output does not build a visual or intuitive model before (or even after) presenting the formula. There is no analogy, metaphor, or imagery-based explanation (like a water pool, a vibrating string, etc.). The explanation is entirely abstract and conceptual — it discusses what the equation describes ('可能性的演化', '叠加原理') but never constructs a visual picture that the reader can 'see'. The closest it gets is mentioning that Newton's F=ma plays an analogous role, but this is a structural analogy, not a visual model."
+    },
+    {
+      "text": "has_role_explanation",
+      "passed": false,
+      "evidence": "The output lists variables with basic definitions in a bullet list format: 'i 是虚数单位', 'ℏ 是约化普朗克常数', 'Ψ(r,t) 是波函数, 描述粒子在位置 r、时刻 t 的量子态', 'Ĥ 是哈密顿算符, 代表系统的总能量'. These are straightforward labels/definitions, not role explanations. There is no discussion of what each variable 'does' in the equation's dynamics, no personality characterization, and no explanation of how they interact (e.g., why i ensures probability conservation, or how ℏ sets the quantum scale)."
+    },
+    {
+      "text": "has_extreme_values",
+      "passed": false,
+      "evidence": "The output does not contain any section testing extreme or boundary values. There is no analysis of what happens when V=0 (free particle), ℏ→0 (classical limit), m→∞ (heavy particle), or V→∞ (infinite well). It mentions that the equation gives hydrogen energy levels E_n = -13.6 eV/n^2 and mentions tunneling, but these are stated as results rather than explored through systematic extreme value testing."
+    },
+    {
+      "text": "has_bigger_picture",
+      "passed": true,
+      "evidence": "Section 三 ('为什么它是量子力学的核心') connects the equation to a broader knowledge network: its role as the quantum analog of Newton's 2nd law, how it unified prior quantum hypotheses (Planck's E=hν, Bohr's quantization, de Broglie's λ=h/p), how it established quantum mechanics' mathematical framework (Hilbert space, Hermitian operators, eigenvalues), and its wide applications (atomic physics, molecular physics, solid state physics, nuclear physics, quantum information, materials science). Section 四 discusses limitations and connections to Dirac equation, Klein-Gordon equation, and Pauli equation. While more textbook-like than the with_skill version, it does connect to a larger knowledge network."
+    }
+  ]
+}

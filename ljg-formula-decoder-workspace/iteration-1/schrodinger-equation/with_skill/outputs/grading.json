@@ -1,0 +1,41 @@
+{
+  "eval_name": "schrodinger-equation",
+  "variant": "with_skill",
+  "expectations": [
+    {
+      "text": "has_latex_formula",
+      "passed": true,
+      "evidence": "Found multiple LaTeX formulas including $$i\\hbar \\frac{\\partial}{\\partial t} \\Psi(\\mathbf{r}, t) = \\hat{H} \\Psi(\\mathbf{r}, t)$$, the expanded Hamiltonian $$\\hat{H} = -\\frac{\\hbar^2}{2m} \\nabla^2 + V(\\mathbf{r}, t)$$, the time-independent form $$\\hat{H} \\psi(\\mathbf{r}) = E \\psi(\\mathbf{r})$$, and numerous inline LaTeX expressions."
+    },
+    {
+      "text": "five_stages_present",
+      "passed": true,
+      "evidence": "All 5 stages are clearly labeled as H2 headers: '## 阶段 1：困惑与缺口', '## 阶段 2：直觉模型', '## 阶段 3：符号映射', '## 阶段 4：极限拷问', '## 阶段 5：升维视角'"
+    },
+    {
+      "text": "has_concrete_scenario",
+      "passed": true,
+      "evidence": "Stage 1 opens with a vivid historical scenario: 'Imagine you are a physicist in 1925. You have just been driven mad by a series of bizarre experiments.' It describes three specific 'weird events': the photoelectric effect (UV light ejecting electrons from metal, with color not brightness determining energy), electron double-slit interference, and hydrogen atom discrete energy levels. This builds a concrete problem before any formula appears in Stage 3."
+    },
+    {
+      "text": "has_visual_model",
+      "passed": true,
+      "evidence": "Stage 2 ('直觉模型') builds an elaborate 'water pool' (水池) model with three key modifications ('魔改'): (1) water height represents probability, not actual water — creating a 'possibility map'; (2) pool bottom terrain = potential energy environment (atomic nucleus = deep pit); (3) water surface rigidity = kinetic energy determined by particle mass. Then a dynamic 'play button' animation describes wave packet spreading, quantum tunneling through ridges, and standing wave patterns in wells. All done without any formula symbols."
+    },
+    {
+      "text": "has_role_explanation",
+      "passed": true,
+      "evidence": "Stage 3 contains a detailed table mapping each symbol to its identity and role in the water pool model: Ψ is the 'complete shape of the water surface at this moment'; i is the 'rotator' ensuring probability conservation (without it probability would explode or vanish); ℏ is the 'ruler' setting the scale of quantum effects; ∂/∂t is the 'eye of time'; Ĥ is the 'director' encoding all physical information; the kinetic term is the 'elastic force' of the water surface; V is the 'terrain'. The structural identification section further explains Ĥ as the 'verb', V as a swappable 'plugin', and i+ℏ as the 'normalization gatekeeper'."
+    },
+    {
+      "text": "has_extreme_values",
+      "passed": true,
+      "evidence": "Stage 4 ('极限拷问') contains an extensive extreme values table with 6 scenarios: free particle (V=0, plane wave solution), infinite potential well (quantized energy levels like guitar strings), ℏ→0 classical limit (wave packet shrinks to point, recovers Newton), m→∞ heavy particle (kinetic term vanishes, no quantum effects), m→0 ultralight particle (kinetic term dominates, extreme wave behavior), and V>E potential barrier (quantum tunneling with exponential decay e^{-κx}). Also includes dimensional analysis verification and model boundary discussion."
+    },
+    {
+      "text": "has_bigger_picture",
+      "passed": true,
+      "evidence": "Stage 5 ('升维视角') contains an ASCII knowledge map connecting Schrödinger equation to: classical mechanics (Newton F=ma via ℏ→0 limit), wave optics (Helmholtz equation), matrix mechanics (Heisenberg), Dirac equation (relativistic, predicted antimatter), and quantum field theory. Discusses 'relatives' (Newton's 2nd law, heat equation — noting the critical role of i), Hamilton-Jacobi equation. Lists three deep principles: unitary evolution & probability conservation, superposition principle (leading to entanglement, quantum computing), and Feynman's path integral formulation. Ends with a hook about the measurement problem and wave function collapse."
+    }
+  ]
+}
