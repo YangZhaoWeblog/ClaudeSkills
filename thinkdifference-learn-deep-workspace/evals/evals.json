@@ -1,0 +1,59 @@
+{
+  "skill_name": "thinkdifference-learn-deep",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "帮我学透 PoW（工作量证明）",
+      "expected_output": "四幕式输出，标准Markdown格式，第一幕包含类比搜索邀请，收束问题不超过20字，困境精确对齐PoW的Sybil resistance子问题",
+      "files": [],
+      "assertions": [
+        {"id": "no_triple_equals", "text": "输出中不包含 ==== 或更长的连续等号分隔符"},
+        {"id": "no_bracket_labels", "text": "输出中不包含 [缺口暴露]、[工具引入]、[停顿点] 等方括号标识"},
+        {"id": "uses_h2_for_acts", "text": "四幕使用 ## 第X幕 格式的 Markdown 标题"},
+        {"id": "uses_h3_for_steps", "text": "第二幕的步骤使用 ### 小标题划分"},
+        {"id": "blockquote_pause", "text": "停顿点使用 > 引用块呈现"},
+        {"id": "has_analogy_search_invite", "text": "第一幕包含类比搜索邀请（一个引导读者在日常经验中搜索同构现象的问题）"},
+        {"id": "closing_question_short", "text": "第一幕的收束问题不超过20个字"},
+        {"id": "no_step_separator", "text": "不包含 --- 第 X 步 --- 形式的步骤分隔线"},
+        {"id": "four_acts_present", "text": "四幕齐全：问题感知、引导式构建、完整组装、验证与压力测试"},
+        {"id": "has_ascii_diagram", "text": "第三幕包含 ASCII 架构图或流程图"}
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "讲透快速排序",
+      "expected_output": "四幕式输出，标准Markdown格式，无装饰性分隔符，第一幕有类比搜索邀请，收束问题简短尖锐",
+      "files": [],
+      "assertions": [
+        {"id": "no_triple_equals", "text": "输出中不包含 ==== 或更长的连续等号分隔符"},
+        {"id": "no_bracket_labels", "text": "输出中不包含 [缺口暴露]、[工具引入]、[停顿点] 等方括号标识"},
+        {"id": "uses_h2_for_acts", "text": "四幕使用 ## 第X幕 格式的 Markdown 标题"},
+        {"id": "uses_h3_for_steps", "text": "第二幕的步骤使用 ### 小标题划分"},
+        {"id": "blockquote_pause", "text": "停顿点使用 > 引用块呈现"},
+        {"id": "has_analogy_search_invite", "text": "第一幕包含类比搜索邀请"},
+        {"id": "closing_question_short", "text": "第一幕的收束问题不超过20个字"},
+        {"id": "no_step_separator", "text": "不包含 --- 第 X 步 --- 形式的步骤分隔线"},
+        {"id": "four_acts_present", "text": "四幕齐全"},
+        {"id": "has_ascii_diagram", "text": "第三幕包含 ASCII 架构图或流程图"}
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "我想彻底搞懂反向传播",
+      "expected_output": "四幕式输出，标准Markdown排版，第一幕聚焦反向传播实际解决的问题，包含类比搜索邀请",
+      "files": [],
+      "assertions": [
+        {"id": "no_triple_equals", "text": "输出中不包含 ==== 或更长的连续等号分隔符"},
+        {"id": "no_bracket_labels", "text": "输出中不包含 [缺口暴露]、[工具引入]、[停顿点] 等方括号标识"},
+        {"id": "uses_h2_for_acts", "text": "四幕使用 ## 第X幕 格式的 Markdown 标题"},
+        {"id": "uses_h3_for_steps", "text": "第二幕的步骤使用 ### 小标题划分"},
+        {"id": "blockquote_pause", "text": "停顿点使用 > 引用块呈现"},
+        {"id": "has_analogy_search_invite", "text": "第一幕包含类比搜索邀请"},
+        {"id": "closing_question_short", "text": "第一幕的收束问题不超过20个字"},
+        {"id": "no_step_separator", "text": "不包含 --- 第 X 步 --- 形式的步骤分隔线"},
+        {"id": "four_acts_present", "text": "四幕齐全"},
+        {"id": "has_ascii_diagram", "text": "第三幕包含 ASCII 架构图或流程图"}
+      ]
+    }
+  ]
+}
