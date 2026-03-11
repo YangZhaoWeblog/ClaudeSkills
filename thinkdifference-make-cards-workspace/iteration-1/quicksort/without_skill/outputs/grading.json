@@ -1,0 +1,11 @@
+{
+  "expectations": [
+    {"text": "has_breadcrumb_map", "passed": false, "evidence": "没有面包屑地图或结构树，直接以Q1开头"},
+    {"text": "has_panorama_card", "passed": false, "evidence": "没有全景卡展示整体结构。Q1只是问核心思想，不是全景视图"},
+    {"text": "has_multi_angle_coverage", "passed": false, "evidence": "主要是what(Q1,Q2,Q4,Q6)和how(Q3)角度，Q8有why，Q9有连接，Q10是对比。缺少明确的reverse和果/后果角度，也没有场景卡"},
+    {"text": "has_core_supplement_split", "passed": false, "evidence": "所有10张卡片平铺排列，没有核心/补充的分层或分隔"},
+    {"text": "answers_self_contained", "passed": true, "evidence": "每个answer独立可读，如Q3完整解释了最坏情况的触发条件"},
+    {"text": "no_enumeration_answers", "passed": false, "evidence": "Q7要求'列出常见优化策略'，答案是3条列表，违反最小信息原则"},
+    {"text": "has_reverse_card", "passed": false, "evidence": "没有reverse角度的卡片，缺少反向推理类问题"}
+  ]
+}

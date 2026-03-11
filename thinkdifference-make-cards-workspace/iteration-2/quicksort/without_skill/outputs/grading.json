@@ -1,0 +1,49 @@
+{
+  "expectations": [
+    {
+      "text": "has_breadcrumb_map",
+      "passed": false,
+      "evidence": "输出中不存在任何集中的面包屑地图或结构树，10 张卡片直接平铺列出，没有先呈现知识全貌。"
+    },
+    {
+      "text": "has_panorama_card",
+      "passed": false,
+      "evidence": "没有任何一张卡片用 ASCII 图展示快速排序的整体结构，也没有标记为「全景」的卡片。"
+    },
+    {
+      "text": "has_multi_angle_coverage",
+      "passed": true,
+      "evidence": "覆盖了至少 4 个不同角度：what（Q1/Q10 核心思想与 partition）、果/复杂度（Q2/Q3/Q4）、对比/比较（Q5/Q6）、how/优化（Q7/Q8/Q9），超过 3 个角度。"
+    },
+    {
+      "text": "has_core_supplement_split",
+      "passed": false,
+      "evidence": "10 张卡片全部均匀排列，没有任何「核心卡片」与「补充卡片」的分隔标记或分组。"
+    },
+    {
+      "text": "answers_self_contained",
+      "passed": true,
+      "evidence": "大多数 answer 自足，例如 Q3 解释了触发条件，Q6 先定义稳定排序再回答，读者无需额外上下文即可理解答案。"
+    },
+    {
+      "text": "no_enumeration_answers",
+      "passed": false,
+      "evidence": "Q5 用 bullet list 对比两种排序，Q8 用编号列表列出三种优化策略，均为纯列举式答案，未将要点嵌入叙述性句子中。"
+    },
+    {
+      "text": "has_reverse_card",
+      "passed": false,
+      "evidence": "没有任何卡片从逆向角度提问（如「给定 O(n²) 退化现象，推断根因」），所有卡片均为正向提问。"
+    },
+    {
+      "text": "has_context_in_questions",
+      "passed": false,
+      "evidence": "Q1、Q2、Q4、Q6 等多张卡片的问题直接发问，缺少情境引导，不足 80% 的问题有上下文背景铺垫。"
+    },
+    {
+      "text": "panorama_answer_simplified",
+      "passed": false,
+      "evidence": "输出中不存在全景卡，该断言因前提不满足而无法通过。"
+    }
+  ]
+}

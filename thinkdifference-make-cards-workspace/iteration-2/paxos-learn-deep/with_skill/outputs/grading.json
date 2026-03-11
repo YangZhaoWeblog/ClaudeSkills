@@ -1,0 +1,73 @@
+{
+  "file": "paxos-learn-deep/with_skill/outputs/output.md",
+  "graded_at": "2026-03-11",
+  "assertions": [
+    {
+      "id": 1,
+      "name": "has_breadcrumb_map",
+      "passed": true,
+      "evidence": "文件开头有明确的「面包屑地图」区块（第5-25行），用 ASCII 树状结构呈现了 Paxos 协议的 4 个顶层分支：核心问题、基础机制、核心协议、边界与关联，并向下延伸到具体子节点。"
+    },
+    {
+      "id": 2,
+      "name": "has_panorama_card",
+      "passed": true,
+      "evidence": "第33-59行存在标记为 [全景卡] 的卡片，Q 要求用户「画出 Paxos 协议的核心模块及消息流向」，A 用 ASCII 图展示了 Proposer → Acceptor → Learner 的消息流。"
+    },
+    {
+      "id": 3,
+      "name": "has_multi_angle_coverage",
+      "passed": true,
+      "evidence": "卡片类型涵盖：[全景卡]、[场景卡]×2、[what 卡]×3、[果卡]×2、[why 卡]、[挖空卡]、[反事实卡]、[边界卡]、[连接卡]、[reverse 卡]，远超 3 种不同角度。"
+    },
+    {
+      "id": 4,
+      "name": "has_core_supplement_split",
+      "passed": true,
+      "evidence": "文件明确使用了「## 核心卡片」（第29行）和「## 补充卡片」（第242行）两个二级标题分隔，各自包含不同数量的卡片。"
+    },
+    {
+      "id": 5,
+      "name": "answers_self_contained",
+      "passed": true,
+      "evidence": "每张卡片的 A 都能独立理解，不需要参考其他卡片。例如 [what 卡] 多数派的 A 直接解释了「超过半数」并附 ASCII 图；[边界卡] A 自包含了节点数/故障数/门槛数的完整计算过程。"
+    },
+    {
+      "id": 6,
+      "name": "no_enumeration_answers",
+      "passed": true,
+      "evidence": "各 A 均有解释性文字而非纯列举。例如多数派卡的 A 解释了「任意两个多数派之间至少有 1 个共同成员」的意义；提议编号卡的 A 解释了「全序关系」的必要性，而非仅列出条目。[what 卡] 学习者的 A 有三个 bullet，但每条都有语义说明而非裸名词堆叠，整体仍属解释性。"
+    },
+    {
+      "id": 7,
+      "name": "has_reverse_card",
+      "passed": true,
+      "evidence": "补充卡片区块第259-268行有明确标记 [reverse 卡]，题目从「接受者的两个承诺」反推「Prepare 阶段的真正目的」，角度为反向推导。"
+    },
+    {
+      "id": 8,
+      "name": "recognizes_four_act_structure",
+      "passed": true,
+      "evidence": "输出利用了四幕结构：[场景卡]「为什么需要分布式共识」对应第一幕的直觉缺口/场景引入；[挖空卡] Paxos 端到端示例对应第二/三幕的构建过程；[反事实卡]「去掉 Prepare 阶段」、[边界卡]「安全性 vs 活性」、[连接卡]「Paxos vs Raft」对应第四幕的压力测试与升维。卡片类型分布与四幕结构映射清晰。"
+    },
+    {
+      "id": 9,
+      "name": "has_context_in_questions",
+      "passed": true,
+      "evidence": "统计 13 张卡片的 Q：多数在问题中带有「在 Paxos 中」「在 Paxos 协议中」「在 Paxos 的 Prepare 阶段」「在 Paxos 的三类角色中」等上下文引入。仅 [全景卡] Q（「画出 Paxos 协议的核心模块及消息流向」）和 [挖空卡] Q（题目自带完整场景描述）略有不同但均包含主题词。达到 80% 以上有明确上下文引入。"
+    },
+    {
+      "id": 10,
+      "name": "panorama_answer_simplified",
+      "passed": false,
+      "evidence": "全景卡 A 的 ASCII 图展示了完整的四步消息序列（Prepare → Promise → Accept → Accepted），包含 7 个节点/标签行，侧重消息流而非顶层模块结构。严格按「3-5 顶层节点」标准衡量，图中节点不止 5 个（Proposer 出现两次、Acceptor×N 出现两次、Learner 一次），且表达的是时序流程而非模块层级，不符合「精简 3-5 顶层节点 ASCII 图」的要求。"
+    }
+  ],
+  "summary": {
+    "total": 10,
+    "passed": 9,
+    "failed": 1,
+    "pass_rate": 0.9,
+    "failed_assertions": ["panorama_answer_simplified"]
+  }
+}

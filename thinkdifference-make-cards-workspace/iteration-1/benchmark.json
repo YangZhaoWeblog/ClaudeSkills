@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "skill_name": "thinkdifference-make-cards",
+    "skill_path": "/Users/yangzhao/.claude-internal/skills/thinkdifference-make-cards",
+    "executor_model": "claude-sonnet-4-20250514",
+    "timestamp": "2026-03-11T03:56:00Z",
+    "evals_run": ["quicksort", "paxos-learn-deep", "http-cache"],
+    "runs_per_configuration": 1
+  },
+  "runs": [
+    {
+      "eval_name": "quicksort",
+      "with_skill": {"pass_rate": 1.0, "passed": 7, "total": 7},
+      "without_skill": {"pass_rate": 0.143, "passed": 1, "total": 7}
+    },
+    {
+      "eval_name": "paxos-learn-deep",
+      "with_skill": {"pass_rate": 1.0, "passed": 8, "total": 8},
+      "without_skill": {"pass_rate": 0.375, "passed": 3, "total": 8}
+    },
+    {
+      "eval_name": "http-cache",
+      "with_skill": {"pass_rate": 1.0, "passed": 7, "total": 7},
+      "without_skill": {"pass_rate": 0.143, "passed": 1, "total": 7}
+    }
+  ],
+  "run_summary": {
+    "with_skill": {"mean_pass_rate": 1.0, "stddev": 0.0},
+    "without_skill": {"mean_pass_rate": 0.220, "stddev": 0.109},
+    "delta": {"pass_rate": "+0.780"}
+  },
+  "notes": [
+    "with_skill 在全部 3 个 eval 上达到 100% 通过率",
+    "without_skill 通过的唯一共性断言是 answers_self_contained（裸模型也能生成自足的回答）",
+    "最大区分性断言：has_breadcrumb_map、has_core_supplement_split、has_reverse_card——裸模型全部失败",
+    "no_enumeration_answers 在 without_skill 中 0/3 通过（裸模型倾向于列举式回答）",
+    "paxos eval 的 recognizes_four_act_structure 是 skill 独有能力——裸模型无法识别并利用 learn-deep 四幕结构"
+  ]
+}

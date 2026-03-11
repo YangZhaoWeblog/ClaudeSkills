@@ -1,0 +1,49 @@
+{
+  "expectations": [
+    {
+      "text": "has_breadcrumb_map",
+      "passed": true,
+      "evidence": "Lines 3-22 contain a section titled '## 1. 面包屑地图' with a complete ASCII tree showing 4 top-level branches (核心机制、复杂度分析、与归并排序的对比、优化策略) and their子节点, clearly presenting the hierarchical knowledge structure."
+    },
+    {
+      "text": "has_panorama_card",
+      "passed": true,
+      "evidence": "Lines 28-44 contain a card labeled '### 全景卡'. Q asks '快速排序作为一种经典排序算法，它的整体知识结构由哪几大块组成？' and A presents a simplified ASCII tree diagram with top-level nodes: 核心机制、复杂度、工程优化, plus a sub-branch for 对比：归并排序."
+    },
+    {
+      "text": "has_multi_angle_coverage",
+      "passed": true,
+      "evidence": "At least 5 cognitive angles covered: (1) what — e.g. '分治具体分为哪三步' (L50), '不稳定具体指什么' (L125); (2) how — e.g. 流程填空卡 (L62), 三数取中法怎么做 (L133), 尾递归如何减少栈深度 (L145); (3) why — e.g. '为什么时间复杂度是 O(n log n)' (L70), '为什么小数组要切换到插入排序' (L139); (4) reverse — 3 cards under '### Reverse 角度' (L88-104), from result/phenomenon back to cause; (5) 场景/应用 — '为什么标准库选择快速排序' (L155)."
+    },
+    {
+      "text": "has_core_supplement_split",
+      "passed": true,
+      "evidence": "Explicit structural separation: '## 2. 核心卡片' (Line 26) contains the main cards organized by subtopic, and '## 3. 补充卡片' (Line 151) contains 2 additional cards. The split is visually and semantically clear."
+    },
+    {
+      "text": "answers_self_contained",
+      "passed": true,
+      "evidence": "All answers include sufficient context to be understood without the source material. For example, the partition answer (L58) explains both what happens and what it means; the O(n²) answer (L78) explains the condition, the typical scenario, and the mechanism; the reverse card answer (L92) names the algorithm, explains why, and gives the math. No answer relies on implicit references like '如上所述' or '见前文'."
+    },
+    {
+      "text": "no_enumeration_answers",
+      "passed": true,
+      "evidence": "No answer is a pure bullet-list or numbered-list enumeration. The closest cases: (1) L52 uses inline numbering '(1)...(2)...(3)...' embedded in a prose sentence, which is structured prose rather than a standalone list; (2) L114-121 uses an ASCII comparison table (not a bullet list); (3) L34-43 uses an ASCII tree diagram. All other answers are continuous prose with explanatory reasoning."
+    },
+    {
+      "text": "has_reverse_card",
+      "passed": true,
+      "evidence": "Three explicit reverse cards under '### Reverse 角度' (Lines 88-104): (1) From phenomenon (O(n²) on sorted input) to algorithm identification (L90-92); (2) From desired outcome (avoid O(n²)) to root cause (pivot selection strategy) (L96-98); (3) From requirement (stable sort) to why quicksort fails and what to use instead (L102-104)."
+    },
+    {
+      "text": "has_context_in_questions",
+      "passed": true,
+      "evidence": "17 out of 17 cards (100%) have questions starting with a context-positioning phrase. All use patterns like '在快速排序的...中，' or '在排序算法的...中，'. Specific count: '在快速排序...' (12 cards), '在排序算法...' (4 cards), '快速排序作为...' (1 card, panorama). Ratio: 17/17 = 100%, well above the 80% threshold."
+    },
+    {
+      "text": "panorama_answer_simplified",
+      "passed": true,
+      "evidence": "The panorama card answer (Lines 34-43) shows exactly 3 top-level module nodes: 核心机制、复杂度、工程优化, with a 4th sub-branch '对比：归并排序'. This is within the 3-5 top-level modules range. It is clearly simplified compared to the full breadcrumb tree (which has 4 branches and ~12 leaf nodes). The panorama card uses compact parenthetical annotations rather than enumerating all sub-items."
+    }
+  ]
+}

@@ -1,0 +1,67 @@
+{
+  "file": "paxos-learn-deep/without_skill/outputs/output.md",
+  "total_cards": 12,
+  "score": "3/10",
+  "assertions": [
+    {
+      "id": 1,
+      "name": "has_breadcrumb_map",
+      "result": false,
+      "reason": "输出中没有面包屑地图或结构树。文件直接从卡片 1 开始列举，没有任何集中的知识结构预览。"
+    },
+    {
+      "id": 2,
+      "name": "has_panorama_card",
+      "result": false,
+      "reason": "没有全景卡。卡片 12「直觉（核心本质）」虽然提供了一句话总结，但不符合全景卡的定义——它没有呈现知识点的完整结构图谱，也没有标注为全景卡。"
+    },
+    {
+      "id": 3,
+      "name": "has_multi_angle_coverage",
+      "result": true,
+      "reason": "覆盖了 What、Why、How（×3）、角色（Roles）、流程（端到端）、边界（Safety/Liveness）、连接（Paxos vs Raft）、反事实、直觉等至少 9 个不同角度，远超 3 个。"
+    },
+    {
+      "id": 4,
+      "name": "has_core_supplement_split",
+      "result": false,
+      "reason": "输出中没有任何核心卡片与补充卡片的分隔标识或分组结构，所有卡片平铺排列。"
+    },
+    {
+      "id": 5,
+      "name": "answers_self_contained",
+      "result": true,
+      "reason": "各卡片的 answer 均包含足够的上下文信息，可以独立理解而无需参照问题。例如卡片 3 的答案完整解释了多数派机制及其保证一致性的原理。"
+    },
+    {
+      "id": 6,
+      "name": "no_enumeration_answers",
+      "result": false,
+      "reason": "卡片 5（两阶段协议）、卡片 7（三种角色）、卡片 8（完整流程）均使用纯列举式答案（bullet list 或 numbered list），未将列举内容转化为叙述性理解。"
+    },
+    {
+      "id": 7,
+      "name": "has_reverse_card",
+      "result": false,
+      "reason": "没有 reverse 角度的卡片（即从结果/现象反推机制或设计原因的问法）。卡片 11「反事实」是条件假设题，不是 reverse 卡片。"
+    },
+    {
+      "id": 8,
+      "name": "recognizes_four_act_structure",
+      "result": false,
+      "reason": "输出没有识别或引用四幕结构（问题感知 → 引导式构建 → 完整组装 → 验证与压力测试）。卡片没有按四幕组织，也没有标注来自哪一幕。"
+    },
+    {
+      "id": 9,
+      "name": "has_context_in_questions",
+      "result": false,
+      "reason": "12 张卡片中，有约 6-7 张问题缺乏上下文引入（如卡片 1、5、7、8、12 直接发问，没有背景框架）。具备上下文引入的不足 80%，估计约 50%。"
+    },
+    {
+      "id": 10,
+      "name": "panorama_answer_simplified",
+      "result": false,
+      "reason": "没有全景卡，此断言无法成立。如果将卡片 12 视为最接近全景的卡片，其 answer 虽然是单句但包含两个子句，尚可接受；但由于全景卡本身不存在，此项判定为 false。"
+    }
+  ]
+}

@@ -1,0 +1,49 @@
+{
+  "expectations": [
+    {
+      "text": "has_breadcrumb_map",
+      "passed": true,
+      "evidence": "Lines 1-16 包含一个明确的面包屑地图，使用 ASCII 树形结构展示了 HTTP 缓存机制的四大层级：强缓存、协商缓存、决策流程、实战策略，每个层级下有具体子节点。"
+    },
+    {
+      "text": "has_panorama_card",
+      "passed": true,
+      "evidence": "卡 1（Lines 22-38）明确标注为「全景卡」。Q 为「HTTP 缓存机制——整体由哪几大模块组成？」引导回忆整体结构；A 使用 ASCII 流程图展示三大模块的串联关系，并附一行文字总结。"
+    },
+    {
+      "text": "has_multi_angle_coverage",
+      "passed": true,
+      "evidence": "覆盖了 6 个不同认知角度：what（卡 2、3）、how（卡 4、5、7）、why（卡 6）、果（卡 8）、reverse（卡 9、10、补充卡 2）、场景（卡 11）。远超 3 个角度的最低要求。"
+    },
+    {
+      "text": "has_core_supplement_split",
+      "passed": true,
+      "evidence": "Line 20 有「## 核心卡片」标题（包含卡 1-11），Line 156 有「## 补充卡片」标题（包含补充卡 1-2），分隔明确。"
+    },
+    {
+      "text": "answers_self_contained",
+      "passed": true,
+      "evidence": "逐卡检查：每张卡的 answer 均包含足够上下文。例如卡 2 解释了强缓存是「浏览器直接使用本地缓存副本，完全不发请求到服务器」；卡 8 解释了 304 意味着「服务器验证了缓存标识，确认资源未发生变化」；卡 10 解释了 304 可反推「强缓存已失效」和「协商缓存命中」。所有 answer 均可脱离原文独立理解。"
+    },
+    {
+      "text": "no_enumeration_answers",
+      "passed": false,
+      "evidence": "补充卡 1 的 answer 主体为两条 bullet list（Cache-Control > Expires / ETag > Last-Modified），虽附有一句规律总结，但核心内容仍是纯列举式。卡 4 的 answer 也以两条 bullet 列出两个响应头，主体为列举形式（尽管有一句优先级说明）。这些 answer 的核心信息传递方式是列举而非叙事/解释。"
+    },
+    {
+      "text": "has_reverse_card",
+      "passed": true,
+      "evidence": "卡 9（从「页面始终显示旧版本」反推 Cache-Control 配置问题）、卡 10（从 304 状态码反推经历了哪些缓存阶段）、补充卡 2（从需求反推方案）均明确标注为 reverse 角度。"
+    },
+    {
+      "text": "has_context_in_questions",
+      "passed": true,
+      "evidence": "逐张统计——卡1:「HTTP 缓存机制——」✓, 卡2:「HTTP 缓存机制中——」✓, 卡3:「HTTP 缓存机制中——」✓, 卡4:「HTTP 强缓存——」✓, 卡5:「HTTP 协商缓存——」✓, 卡6:「HTTP 协商缓存中——」✓, 卡7:「HTTP 缓存机制——」✓, 卡8:「HTTP 协商缓存中——」✓, 卡9:「HTTP 缓存排障——」✓, 卡10:「HTTP 缓存机制——」✓, 卡11:「HTTP 缓存实战——」✓, 补充卡1:「HTTP 缓存机制中——」✓, 补充卡2:「HTTP 缓存策略设计——」✓。比例：13/13 = 100%，远超 80% 阈值。"
+    },
+    {
+      "text": "panorama_answer_simplified",
+      "passed": true,
+      "evidence": "全景卡（卡 1）的 answer 总结行为「三大模块：强缓存（本地判断）| 协商缓存（服务器验证）| 决策流程（串联二者）」，恰好 3 个顶层模块节点，符合 3-5 个的要求。ASCII 图虽展示了模块间的流转关系和部分子标签（Cache-Control、ETag 等），但顶层结构保持为 3 个模块视角，未展开为逐步子流程。"
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "expectations": [
+    {"text": "has_breadcrumb_map", "passed": true, "evidence": "输出以完整的面包屑地图开头，用 ASCII 树展示了快速排序的完整结构（核心思想、复杂度分析、与归并对比、优化策略）"},
+    {"text": "has_panorama_card", "passed": true, "evidence": "第一张卡是全景卡，Q问整体结构，A用ASCII树展示"},
+    {"text": "has_multi_angle_coverage", "passed": true, "evidence": "覆盖了 what(全景卡)、how(卡片1挖空)、why(卡片2,6)、果(卡片3,8)、reverse(卡片4)、场景(卡片5)，6个角度全覆盖"},
+    {"text": "has_core_supplement_split", "passed": true, "evidence": "有明确的分隔线：'--- 以上为核心卡片，以下为补充卡片 ---'"},
+    {"text": "answers_self_contained", "passed": true, "evidence": "每个answer都包含完整解释，如卡片4解释了原地排序vs空间开销的关系，不依赖外部信息"},
+    {"text": "no_enumeration_answers", "passed": true, "evidence": "没有纯列表答案。卡片5(场景)虽然列了两条但是作为决策判断依据而非枚举。优化策略被拆成了独立卡片(7,8)而非列举"},
+    {"text": "has_reverse_card", "passed": true, "evidence": "卡片4是明确的reverse卡：'快速排序空间复杂度是O(log n)，但被称为原地排序——这不矛盾吗？'"}
+  ]
+}

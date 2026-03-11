@@ -1,0 +1,49 @@
+{
+  "file": "iteration-2/http-cache/with_skill/outputs/output.md",
+  "total_cards": 15,
+  "assertions": {
+    "has_breadcrumb_map": {
+      "score": 1,
+      "reason": "文件开头有明确的「面包屑地图」section，包含完整的 ASCII 树形结构，4 个顶层节点（强缓存、协商缓存、完整决策流程、实践策略）及其子节点，结构清晰。"
+    },
+    "has_panorama_card": {
+      "score": 1,
+      "reason": "存在标注为「全景卡」的卡片。Q 引导用户回忆「核心模块顶层结构」，A 使用简洁的 ASCII 流程图展示两大模块（强缓存检查、协商缓存验证），节点数量在 3-5 个范围内（含浏览器发起请求入口），符合要求。"
+    },
+    "has_multi_angle_coverage": {
+      "score": 1,
+      "reason": "卡片覆盖了至少 5 个不同角度：(1) 概念定义（卡片 01、05）；(2) 响应头/请求头对应关系（卡片 02、06、07）；(3) 优先级规则（卡片 03、08、14）；(4) 精度局限 / 边界场景（卡片 09、15）；(5) 状态码与决策流程（卡片 10、11）；(6) 工程实践（卡片 12、13）。超过 3+ 角度。"
+    },
+    "has_core_supplement_split": {
+      "score": 1,
+      "reason": "文件中存在明确的「## 核心卡片」和「## 补充卡片」两个 section 分隔，卡片 01-11 归属核心，卡片 12-15 归属补充。"
+    },
+    "answers_self_contained": {
+      "score": 1,
+      "reason": "所有卡片的 Answer 均在不依赖外部上下文的情况下可独立理解。例如卡片 06 在 A 中同时给出了 Last-Modified 和 If-Modified-Since 的含义；卡片 11 附带了 ASCII 决策图辅助理解；未发现依赖前后卡片才能理解的 Answer。"
+    },
+    "no_enumeration_answers": {
+      "score": 1,
+      "reason": "所有 Answer 均以短句、对比说明或带注释的代码块形式呈现，未出现纯列举（如 1. 2. 3. 无解释的项目列表）的 Answer。即使涉及多个元素（如卡片 02），也以内联形式配合说明。"
+    },
+    "has_reverse_card": {
+      "score": 0,
+      "reason": "15 张卡片中未发现任何明确的「reverse」角度卡片（即从结果/现象反推原因/机制，或反向考查「给你这个答案，请说出对应的问题」形式）。卡片 14 虽为挖空卡，但属于填空形式而非 reverse 角度。"
+    },
+    "has_context_in_questions": {
+      "score": 1,
+      "reason": "统计 15 张卡片的 Question：全景卡 Q 有「HTTP 缓存机制」上下文；卡片 01-11 的 Q 均以「在 HTTP 缓存中 / 在 HTTP 强缓存中 / 在 HTTP 协商缓存中 / 在 HTTP 缓存的完整决策流程中」等引入；卡片 12-13 以「在 HTTP 缓存实践中 / 在前端部署实践中」引入；卡片 14 Q 以「补全 HTTP 缓存优先级规则」引入；卡片 15 以「在 HTTP 缓存中」引入。15/15 = 100% 有上下文背景，超过 80% 阈值。"
+    },
+    "panorama_answer_simplified": {
+      "score": 1,
+      "reason": "全景卡 Answer 为 8 行 ASCII 流程图，仅包含两个核心检查节点（强缓存检查、协商缓存验证）及其直接结果分支，未堆砌细节（如 ETag/Last-Modified 等）。结构精简，顶层节点数符合 3-5 个约束。"
+    }
+  },
+  "summary": {
+    "total_assertions": 9,
+    "passed": 8,
+    "failed": 1,
+    "score": "8/9",
+    "failed_assertions": ["has_reverse_card"]
+  }
+}

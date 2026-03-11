@@ -1,0 +1,54 @@
+{
+  "expectations": [
+    {
+      "text": "has_breadcrumb_map",
+      "passed": true,
+      "evidence": "第 1-16 行包含一个完整的面包屑地图，使用 ASCII 树形结构展示了 Paxos 的 5 个顶层层级：核心问题、三大构件（含 3 个子项）、三种角色（含 3 个子项）、安全性与活性边界、与 Raft 的关系。"
+    },
+    {
+      "text": "has_panorama_card",
+      "passed": true,
+      "evidence": "第 24-40 行标记为'全景卡'，Q 引导回忆'Paxos 协议的顶层架构由哪几大模块组成？'，A 用 ASCII 方框图呈现了四大模块（角色、机制、协议、安全性边界），并附一句总结。"
+    },
+    {
+      "text": "has_multi_angle_coverage",
+      "passed": true,
+      "evidence": "至少覆盖了 6 种认知角度：场景卡（第 44 行）、缺口卡/why（第 52 行起）、how 角度（第 90 行起）、what 角度（第 129 行起）、果/安全性与活性（第 143 行起）、reverse 角度（第 188 行起），另外还有边界卡、反事实卡、连接卡等，远超 3 个角度。"
+    },
+    {
+      "text": "has_core_supplement_split",
+      "passed": true,
+      "evidence": "第 20 行明确标记'## 核心卡片'，第 217 行明确标记'## 补充卡片'，中间以双分隔线（第 215-216 行 '---'）分隔，补充卡片包含 3 张额外卡片（提议编号生成、Promise 附带旧值、活锁场景）。"
+    },
+    {
+      "text": "answers_self_contained",
+      "passed": true,
+      "evidence": "逐张检查：每张卡的 answer 都包含充分的上下文信息。例如多数派卡（第 62 行）解释了 5 个接受者需要 3 个同意并给出数学依据；承诺语义卡（第 133 行）完整定义了 Promise 的含义而不依赖外部引用；reverse 卡（第 192 行）解释了安全性保证和持久化要求。无需回看原文即可独立理解。"
+    },
+    {
+      "text": "no_enumeration_answers",
+      "passed": true,
+      "evidence": "虽然部分卡片使用了列表格式（如第 94-96 行的 how 卡用两个 bullet 分别解释 Proposer 和 Acceptor 的消息，第 147-149 行安全性卡列出两条保证），但每个列表项都附有语义解释而非纯罗列。没有出现仅罗列术语或步骤而无解释的纯列举式 answer。"
+    },
+    {
+      "text": "has_reverse_card",
+      "passed": true,
+      "evidence": "包含 3 张明确的 reverse 角度卡片：(1) 第 190 行——从'已确认的决定被推翻'反推违反了安全性保证，根因为承诺未持久化；(2) 第 196 行——从需求'不能产生矛盾结果'反推对应 Paxos 安全性优先设计；(3) 第 202 行——从'两个矛盾多数派'反推违反了承诺规则。"
+    },
+    {
+      "text": "recognizes_four_act_structure",
+      "passed": true,
+      "evidence": "输出明确标注了四幕来源：第 44 行'第一幕 -> 场景卡'提取了投票场景；第 52 行'第二幕 -> 缺口卡 + 停顿点复用'复用了引导式构建中的停顿点；第 115 行'第三幕 -> 流程挖空卡'从完整组装中提取流程验证；第 161/175/208 行分别标注'第四幕 -> 边界卡/反事实卡/连接卡'，从压力测试幕中提取了边界、反事实和连接知识。四幕结构被完整识别和利用。"
+    },
+    {
+      "text": "has_context_in_questions",
+      "passed": true,
+      "evidence": "逐张统计共 27 张卡片的 Q：所有 27 张均以背景定位短语开头，如'在分布式共识领域，Paxos...'、'Paxos 的多数派机制（Quorum）中，...'、'Paxos 协议的 Prepare 阶段，...'、'Paxos 中，...'、'Paxos 反事实推理——...'、'分布式系统设计中，...'等。比例为 27/27 = 100%，远超 80% 门槛。"
+    },
+    {
+      "text": "panorama_answer_simplified",
+      "passed": true,
+      "evidence": "全景卡 A（第 30-40 行）展示了 4 个顶层模块节点：角色、机制、协议、安全性边界，属于模块划分视角（谁参与/靠什么保证/怎么跑/能保证什么），而非消息时序流程（Prepare→Promise→Accept→Accepted）。4 个模块在 3-5 个的合理范围内。"
+    }
+  ]
+}

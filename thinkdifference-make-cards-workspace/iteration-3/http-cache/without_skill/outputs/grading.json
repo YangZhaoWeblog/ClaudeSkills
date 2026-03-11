@@ -1,0 +1,49 @@
+{
+  "expectations": [
+    {
+      "text": "has_breadcrumb_map",
+      "passed": false,
+      "evidence": "输出中没有任何集中的面包屑地图或结构树。没有一个独立的部分展示知识点的整体层级关系。卡片直接从卡片1开始，缺少全局结构索引。"
+    },
+    {
+      "text": "has_panorama_card",
+      "passed": false,
+      "evidence": "不存在一张专门的全景卡。卡片6（完整缓存判定流程）虽然有ASCII流程图，但它只覆盖了缓存判定流程这一个方面，不是对整个HTTP缓存知识体系的全景式概览（缺少对头部配对、缓存策略、易混淆点等模块的整体呈现）。没有Q引导回忆整体结构、A用精简ASCII图呈现完整知识版图的卡片。"
+    },
+    {
+      "text": "has_multi_angle_coverage",
+      "passed": true,
+      "evidence": "卡片明确标注了多个认知角度：What（卡片1/2/3）、Why（卡片4/5）、How（卡片6/7）、场景（卡片8）、反向/reverse（卡片9）、果因推理（卡片11）。至少覆盖了what/why/how/场景/reverse共5个角度，远超3个的要求。"
+    },
+    {
+      "text": "has_core_supplement_split",
+      "passed": false,
+      "evidence": "所有12张卡片按顺序平铺排列，没有明确的核心卡片与补充卡片的分隔标记或分区。虽然卡片标题中标注了角度（What/Why/How等），但没有将卡片分为'核心'和'补充'两组。"
+    },
+    {
+      "text": "answers_self_contained",
+      "passed": true,
+      "evidence": "逐张检查：每张卡片的answer都包含了足够的上下文信息，不需要参考原文即可理解。例如卡片4解释了Last-Modified的三个缺陷并说明ETag为何更可靠；卡片7解释了304状态码的含义和设计原因；卡片9从现象出发给出了完整的诊断推理和修复方案。所有answer都具备独立可读性。"
+    },
+    {
+      "text": "no_enumeration_answers",
+      "passed": false,
+      "evidence": "多张卡片的answer本质上是列举式的。卡片1的answer是3个bullet points列举两类缓存和区别；卡片2是3个bullet points列举两个头和优先级；卡片3是numbered list列举两种验证方式；卡片4的answer是numbered list列举3个缺陷；卡片5是3个bullet points列举对比。虽然部分卡片在列举后有总结句，但主体结构仍为纯列举式。"
+    },
+    {
+      "text": "has_reverse_card",
+      "passed": true,
+      "evidence": "卡片9（标题'反向提问 - 从现象推机制'）是典型的reverse角度卡片：从'用户反馈清缓存后正常，不清就看到旧版本'这一现象反推出'index.html被设置了过长的强缓存'这一原因。卡片11（标题'果因推理 - 从请求头反推阶段'）也是reverse角度，从看到If-None-Match头反推当前处于协商缓存阶段。至少有2张明确的reverse卡片。"
+    },
+    {
+      "text": "has_context_in_questions",
+      "passed": false,
+      "evidence": "逐张统计问题是否以背景定位短语开头：卡片1'HTTP缓存分为...'——有定位(HTTP缓存)✓；卡片2'强缓存由哪两个...'——有定位(强缓存)✓；卡片3'协商缓存有哪两种...'——有定位(协商缓存)✓；卡片4'为什么ETag的优先级...'——无背景定位短语，直接提问✗；卡片5'为什么Cache-Control...'——无背景定位短语✗；卡片6'浏览器请求一个资源时...'——有场景定位✓；卡片7'服务器返回304...'——有定位✓；卡片8'为什么index.html...'——无背景定位短语✗；卡片9'用户反馈...'——有场景定位✓；卡片10'Cache-Control: no-cache和...'——无背景定位短语(如'在HTTP缓存中')✗；卡片11'如果在浏览器DevTools...'——有场景定位✓；卡片12'请将以下协商缓存相关的...'——有定位(协商缓存)✓。通过8张/共12张=66.7%，低于80%要求。"
+    },
+    {
+      "text": "panorama_answer_simplified",
+      "passed": false,
+      "evidence": "不存在全景卡（has_panorama_card已判false），因此此项判false。"
+    }
+  ]
+}

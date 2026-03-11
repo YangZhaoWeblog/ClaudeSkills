@@ -1,0 +1,12 @@
+{
+  "expectations": [
+    {"text": "has_breadcrumb_map", "passed": false, "evidence": "没有面包屑地图或结构树"},
+    {"text": "has_panorama_card", "passed": false, "evidence": "没有全景卡。卡片1只问根本问题，不是整体结构展示"},
+    {"text": "has_multi_angle_coverage", "passed": true, "evidence": "what(卡片1,3,5)、why(卡片2,6)、how(卡片4)、反面/reverse(卡片7,10)、场景(卡片9)、对比(卡片8)，覆盖较好"},
+    {"text": "has_core_supplement_split", "passed": false, "evidence": "10张卡片平铺排列，没有核心/补充分层"},
+    {"text": "answers_self_contained", "passed": true, "evidence": "答案独立可读，如卡片6完整解释了安全性保证的两个约束叠加"},
+    {"text": "no_enumeration_answers", "passed": false, "evidence": "卡片4要求描述完整的两阶段流程，答案是长列表；卡片5列出三个角色的职责"},
+    {"text": "has_reverse_card", "passed": true, "evidence": "卡片10是明确的reverse：去掉Promise约束会出什么问题"},
+    {"text": "recognizes_four_act_structure", "passed": false, "evidence": "没有识别四幕结构，没有从第一幕提取场景卡（虽然卡片9用了餐厅比喻但不是直接复用），没有明确利用停顿点"}
+  ]
+}

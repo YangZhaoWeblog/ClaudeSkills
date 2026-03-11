@@ -1,0 +1,54 @@
+{
+  "expectations": [
+    {
+      "text": "has_breadcrumb_map",
+      "passed": false,
+      "evidence": "输出直接从「卡片 1」开始，没有任何集中的面包屑地图或结构树来展示 Paxos 知识点的整体层级关系。没有目录、没有结构总览、没有知识树状图。"
+    },
+    {
+      "text": "has_panorama_card",
+      "passed": false,
+      "evidence": "20 张卡片中没有任何一张是全景卡。没有一张卡的 Q 引导回忆 Paxos 整体结构，也没有任何 A 使用 ASCII 图呈现整体架构。所有卡片都是针对具体知识点的细粒度卡片。"
+    },
+    {
+      "text": "has_multi_angle_coverage",
+      "passed": true,
+      "evidence": "卡片覆盖了多个认知角度：What（卡片1/2/3/5/13）、Why（卡片6/8/15/17/20）、How（卡片4/7/19）、Scenario/场景（卡片9/10/14）、Reverse/反事实（卡片11）、Consequence/果（卡片12/18）、Connection/关联（卡片16）。至少覆盖了 6 个不同的认知角度，远超 3 个的要求。"
+    },
+    {
+      "text": "has_core_supplement_split",
+      "passed": false,
+      "evidence": "所有 20 张卡片以平铺的编号列表形式呈现（卡片 1 到卡片 20），没有任何明确的「核心卡片」与「补充卡片」的分隔标记、分组标题或分区线。虽然卡片标签中有角度标注（如 [核心机制 / What]），但这是认知角度分类，不是核心/补充的分隔。"
+    },
+    {
+      "text": "answers_self_contained",
+      "passed": true,
+      "evidence": "逐张检查：每张卡的 answer 都包含了足够的上下文信息，无需参考原文即可独立理解。例如卡片 3 的 answer 解释了多数派的定义和重叠原理；卡片 7 完整描述了两阶段流程；卡片 11 的反事实 answer 自带了完整的冲突场景描述。没有出现「如上所述」「参见前文」等依赖外部上下文的表述。"
+    },
+    {
+      "text": "no_enumeration_answers",
+      "passed": false,
+      "evidence": "多张卡片的 answer 是纯列举/bullet list 形式：卡片 2（三个角色纯 bullet list）、卡片 13（Safety/Liveness 纯 bullet list）、卡片 16（Paxos vs Raft 纯 bullet list）、卡片 20（三点 numbered list）。这些 answer 本质上是条目罗列，缺乏叙事性的因果链或解释性段落。"
+    },
+    {
+      "text": "has_reverse_card",
+      "passed": true,
+      "evidence": "卡片 11 标注为 [反事实 / Reverse]，Q 是「如果去掉 Prepare 阶段，直接发 Accept，具体会出什么问题？」，从一个反事实假设出发反推 Prepare 阶段存在的必要性，是典型的 reverse 角度卡片。"
+    },
+    {
+      "text": "recognizes_four_act_structure",
+      "passed": false,
+      "evidence": "输出没有识别或利用 learn-deep 的四幕结构（问题感知→引导式构建→完整组装→验证与压力测试）。虽然卡片 1 标注了 [问题感知 / What]，但这只是一个认知角度标签，不是对四幕结构的系统性利用。没有从第二幕复用停顿点作为卡片 Q，没有从第四幕系统性提取反事实/边界/连接卡。卡片的组织方式是按知识点主题排列，而非按四幕结构映射。"
+    },
+    {
+      "text": "has_context_in_questions",
+      "passed": false,
+      "evidence": "逐张统计：以背景定位短语开头的卡片 Q 有 12 张（卡片 1/2/5/7/8/9/12/13/14/15/16/19），未以背景定位短语开头的有 8 张（卡片 3「什么是多数派机制」、4「5个接受者中」、6「为什么提议编号必须是递增的」、10「如果提议者P1和P2并发提议」、11「如果去掉Prepare阶段」、17「为什么任意两个多数派」、18「如果两个提议者碰巧」、20「接受者在Promise中」）。比例为 12/20 = 60%，低于 80% 的要求。"
+    },
+    {
+      "text": "panorama_answer_simplified",
+      "passed": false,
+      "evidence": "不存在全景卡（见 has_panorama_card 的判定），因此此项判 false。"
+    }
+  ]
+}
