@@ -36,17 +36,18 @@ def grade_output(filepath):
         "evidence": f"Found {len(h2_acts)} ## act headers: {h2_acts}"
     })
 
-    # 4. uses_h3_for_steps
-    # Check if Act 2 section has ### headings
+    # 4. no_numbered_tool_headers - Act 2 should NOT have numbered tool headers (### 第X个工具：)
+    # v2.1: immersive narrative flow means no ### headers splitting the narrative in Act 2
     act2_match = re.search(r'## 第二幕.*?(?=## 第三幕)', content, re.DOTALL)
-    h3_in_act2 = []
+    numbered_headers = []
     if act2_match:
         act2_text = act2_match.group()
-        h3_in_act2 = re.findall(r'^### .+', act2_text, re.MULTILINE)
+        # Check for numbered tool headers like "### 第1个工具" or "### 工具一" etc.
+        numbered_headers = re.findall(r'^### .*(工具|第[一二三四五六七八九十\d]+).+', act2_text, re.MULTILINE)
     results.append({
-        "text": "uses_h3_for_steps: 第二幕使用 ### 小标题",
-        "passed": len(h3_in_act2) >= 2,
-        "evidence": f"Found {len(h3_in_act2)} ### headings in Act 2"
+        "text": "no_numbered_tool_headers: 第二幕无编号式工具标题",
+        "passed": len(numbered_headers) == 0,
+        "evidence": f"Found {len(numbered_headers)} numbered tool headers: {numbered_headers}" if numbered_headers else "No numbered tool headers found - immersive narrative flow"
     })
 
     # 5. blockquote_pause
@@ -143,7 +144,10 @@ def grade_output(filepath):
     return results
 
 def main():
-    base = "/Users/yangzhao/.claude/skills/thinkdifference-learn-deep-workspace/iteration-1"
+    if len(sys.argv) > 1:
+        base = sys.argv[1]
+    else:
+        base = "/Users/yangzhao/.claude/skills/thinkdifference-learn-deep-workspace/iteration-1"
     dirs = [d for d in os.listdir(base) if os.path.isdir(os.path.join(base, d))]
 
     for d in sorted(dirs):
