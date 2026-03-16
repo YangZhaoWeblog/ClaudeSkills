@@ -1,0 +1,70 @@
+{
+  "skill_name": "thinkdifference-extract-atoms",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "帮我从这篇 RSA 的 deep-learn 文章提取原子笔记 @RSA加密-deeplearn.md",
+      "expected_output": "应提取 3-7 个核心原子笔记（如大整数分解困难性、欧拉函数、模运算、非对称加密、单向函数等），每个文件有完整 frontmatter（tags、aliases、source），一句话本质 ≤50 字且为直觉式，关联方向不杜撰，最后输出清单",
+      "files": ["2.笔记本/技术/Web3/密码学/非对称加密/RSA加密-deeplearn.md"],
+      "assertions": [
+        {
+          "name": "creates_3_to_12_files",
+          "description": "在 1.原子笔记/ 下创建 3-12 个新的 .md 文件",
+          "type": "file_count_range",
+          "min": 3,
+          "max": 12
+        },
+        {
+          "name": "frontmatter_has_aliases",
+          "description": "每个新建文件的 frontmatter 包含 aliases 字段且至少有 2 个别名",
+          "type": "content_check"
+        },
+        {
+          "name": "frontmatter_has_source",
+          "description": "每个新建文件的 frontmatter 包含 source 字段且链接到 RSA加密-deeplearn",
+          "type": "content_check"
+        },
+        {
+          "name": "one_liner_under_50_chars",
+          "description": "每个文件的一句话本质不超过 50 个中文字符",
+          "type": "content_check"
+        },
+        {
+          "name": "not_encyclopedic_style",
+          "description": "一句话本质不以百科定义式开头（不以'XX是一种...'或'XX是指...'开头）",
+          "type": "content_check"
+        },
+        {
+          "name": "outputs_summary_list",
+          "description": "最终输出包含清单，列出已创建和已跳过的原子笔记",
+          "type": "output_check"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "我刚学完 RSA，帮我把 @RSA加密-deeplearn.md 里的知识点拆成原子笔记。注意：1.原子笔记/ 目录目前是空的",
+      "expected_output": "应自动创建 1.原子笔记/ 目录（如不存在），正常生成所有原子笔记，不因目录不存在而报错",
+      "files": ["2.笔记本/技术/Web3/密码学/非对称加密/RSA加密-deeplearn.md"],
+      "assertions": [
+        {
+          "name": "handles_empty_directory",
+          "description": "不因 1.原子笔记/ 为空或不存在而报错，正常创建文件",
+          "type": "behavior_check"
+        },
+        {
+          "name": "creates_files_successfully",
+          "description": "成功在 1.原子笔记/ 下创建至少 3 个 .md 文件",
+          "type": "file_count_range",
+          "min": 3,
+          "max": 15
+        },
+        {
+          "name": "no_skip_section_when_empty",
+          "description": "当目录为空时，清单中不应有'已跳过'部分，或该部分为空",
+          "type": "output_check"
+        }
+      ]
+    }
+  ]
+}
