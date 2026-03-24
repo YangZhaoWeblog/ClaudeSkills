@@ -1,0 +1,10 @@
+{
+  "eval_id": 3,
+  "eval_name": "kingbase-ssl-no-context",
+  "prompt": "帮我写一份测试报告：Kingbase SSL 连接测试",
+  "assertions": [
+    {"text": "没有捏造具体测试数据（IP、端口、证书名、测试结果）"},
+    {"text": "明确声明了信息缺失或所有结论待验证"},
+    {"text": "文档结构包含测试范围、测试过程、结果"}
+  ]
+}

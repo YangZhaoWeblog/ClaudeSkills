@@ -1,0 +1,10 @@
+{
+  "eval_id": 1,
+  "eval_name": "clickhouse-no-context",
+  "prompt": "帮我写一份调研报告：我们是否应该支持 ClickHouse 数据库",
+  "assertions": [
+    {"text": "文档开头三段包含明确结论（支持/不支持）"},
+    {"text": "无实测数据时，技术细节标注了待验证或来源"},
+    {"text": "没有捏造具体的版本号、IP、端口等无法核实的数据"}
+  ]
+}
