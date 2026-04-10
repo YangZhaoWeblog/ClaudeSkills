@@ -2,6 +2,16 @@
 
 一套为 [Claude Code](https://claude.ai/code) 打造的认知增强 Skills，专注于**深度学习、知识管理与思维工具**。
 
+<a href="https://star-history.com/#YangZhaoWeblog/ClaudeSkills&Date">
+ <picture>
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=YangZhaoWeblog/ClaudeSkills&type=Date&theme=dark" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=YangZhaoWeblog/ClaudeSkills&type=Date" />
+   <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=YangZhaoWeblog/ClaudeSkills&type=Date" />
+ </picture>
+</a>
+
+---
+
 ## 目录
 
 - [ThinkDifference 系列](#thinkdifference-系列)
@@ -63,14 +73,3 @@
 2. 在对话中使用触发语直接激活对应 Skill
 3. Skills 之间可以组合使用，例如：`td-decompose` → `learn-deep` → `make-cards` 构成完整学习闭环
 
----
-
-## Star History
-
-<a href="https://star-history.com/#YangZhaoWeblog/ClaudeSkills&Date">
- <picture>
-   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=YangZhaoWeblog/ClaudeSkills&type=Date&theme=dark" />
-   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=YangZhaoWeblog/ClaudeSkills&type=Date" />
-   <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=YangZhaoWeblog/ClaudeSkills&type=Date" />
- </picture>
-</a>
