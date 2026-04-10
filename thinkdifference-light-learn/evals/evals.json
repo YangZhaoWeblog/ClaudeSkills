@@ -1,0 +1,49 @@
+{
+  "skill_name": "thinkdifference-light-learn",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "补一下 mTLS，我已经学过 TLS 了。",
+      "expected_output": "以 TLS 为宿主，输出到与 TLS deep-learn 同目录的 light-learn 文件。锚点激活 TLS 握手的已有理解，核心内容用对比形式展现差异，一句话嫁接点明最小关键差异，场景给出微服务等封闭环境用例，反直觉检验解释为什么公网不用 mTLS。",
+      "files": [],
+      "expectations": [
+        "输出包含锚点、核心内容、一句话嫁接、场景、反直觉检验五个完整块",
+        "锚点中包含 [[TLS]] wikilink",
+        "核心内容用对比形式（表格或并列）展现 TLS 与 mTLS 的差异",
+        "一句话嫁接准确概括 mTLS 与 TLS 的最小关键差异",
+        "场景给出具体使用场景（如微服务、Kubernetes、IoT 等）",
+        "反直觉检验提出并回答一个戳破类比弱点的问题",
+        "文件路径与宿主 deep-learn 同目录",
+        "frontmatter 包含 host 字段指向宿主概念"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "记一下 Let's Encrypt 是什么，我学过数字证书了。",
+      "expected_output": "以数字证书为宿主。锚点激活 CA 签发证书的已有理解，核心内容陈述 Let's Encrypt 的关键事实（免费、DV-only、自动化），一句话嫁接定位它在 CA 体系中的位置，场景给出个人网站快速上 HTTPS 的用例，反直觉检验质疑为什么银行不用 Let's Encrypt。",
+      "files": [],
+      "expectations": [
+        "输出包含五个完整块",
+        "锚点中激活用户关于 CA/数字证书的已有知识",
+        "核心内容是事实陈述形式，不是对比形式",
+        "提到 Let's Encrypt 的关键特征（免费、DV-only 中至少两点）",
+        "场景具体可感（不是抽象描述）",
+        "反直觉检验戳破某个直觉弱点"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "补一下 OCSP soft-fail 是怎么回事。数字证书那个 light-learn 文件里已经有 Let's Encrypt 了。",
+      "expected_output": "追加到已有的数字证书 light-learn 文件。锚点激活 OCSP 证书撤销检查的已有理解，核心内容用极端提问形式，一句话嫁接说明 soft-fail 是安全性向可用性的妥协，场景描述浏览器 OCSP 超时的真实行为，反直觉检验质疑 soft-fail 是否让撤销机制形同虚设。同时更新目录。",
+      "files": [],
+      "expectations": [
+        "输出是追加到已有文件，不是新建文件",
+        "更新了文件顶部的目录索引",
+        "锚点中激活 OCSP/证书撤销检查的已有知识",
+        "核心内容使用极端提问形式（先问后答）",
+        "一句话嫁接点明 soft-fail 的本质（安全性 vs 可用性的权衡）",
+        "五块结构完整"
+      ]
+    }
+  ]
+}
