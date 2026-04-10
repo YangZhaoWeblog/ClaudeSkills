@@ -1,0 +1,13 @@
+{
+  "eval_id": 1,
+  "eval_name": "distributed-systems-decompose",
+  "prompt": "我想系统学习分布式系统，帮我 decompose 一下",
+  "assertions": [
+    {"text": "终端输出 ≤ 25 行", "type": "length_check"},
+    {"text": "只有 DAG 图，无节点列表", "type": "format_check"},
+    {"text": "无五维评估输出", "type": "format_check"},
+    {"text": "有入口和枢纽标注", "type": "structure_check"},
+    {"text": "有🔴🟡🟢颜色标注", "type": "feature_check"},
+    {"text": "有迭代提示", "type": "feature_check"}
+  ]
+}

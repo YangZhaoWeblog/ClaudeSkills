@@ -1,0 +1,1 @@
+{"eval_id": 1, "eval_name": "distributed-systems", "prompt": "帮我分解分布式系统", "assertions": [{"id": "red-executable", "text": "🔴节点有 学透 X 可执行命令"}, {"id": "yellow-what-to-read", "text": "🟡节点说了读什么"}, {"id": "green-what-to-do", "text": "🟢节点说了做什么"}, {"id": "compare-explained", "text": "交错组合解释了为什么对比学"}]}

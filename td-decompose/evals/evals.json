@@ -1,0 +1,23 @@
+{
+  "skill_name": "td-decompose",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "我想系统学习分布式系统，帮我 decompose 一下",
+      "expected_output": "DAG with ≤15 nodes covering core distributed systems concepts (CAP, consensus, replication, etc.), with entry points, hub nodes marked, five-dimension assessments, and learning strategy suggestions",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "decompose 密码学，我有一些基础，学过对称加密和哈希",
+      "expected_output": "DAG focusing on public-key cryptography, digital signatures, key exchange etc., with user's existing knowledge reflected in '当前距离' assessments, fewer entry-level nodes since user has basics",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "我要学机器学习入门，帮我规划学习路径",
+      "expected_output": "DAG covering ML fundamentals (linear regression, gradient descent, neural networks, etc.), reasonable five-dimension assessments, mix of red/yellow/green strategy suggestions",
+      "files": []
+    }
+  ]
+}

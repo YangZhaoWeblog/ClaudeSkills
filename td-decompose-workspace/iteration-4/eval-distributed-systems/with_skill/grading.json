@@ -1,0 +1,1 @@
+{"eval_id": 1, "expectations": [{"text": "🔴节点有 学透 X 可执行命令", "passed": true, "evidence": "5/5 🔴节点均有 → 学透 X"}, {"text": "🟡节点说了读什么", "passed": true, "evidence": "5/5 🟡节点均有具体材料推荐"}, {"text": "🟢节点说了做什么", "passed": true, "evidence": "2/2 🟢节点有具体任务"}, {"text": "交错组合解释了为什么对比学", "passed": true, "evidence": "3组均说清了对比学习的理由"}]}

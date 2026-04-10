@@ -1,0 +1,12 @@
+{
+  "eval_id": 1,
+  "eval_name": "crypto-moc-update",
+  "prompt": "synthesize ECDH, ECDSA, ECDHE",
+  "assertions": [
+    {"id": "detect-existing-moc", "text": "检测到已有密码学 MOC 并选择增量更新（路径A）", "type": "boolean"},
+    {"id": "has-emergence", "text": "涌现洞察存在且非平凡", "type": "boolean"},
+    {"id": "has-wikilinks", "text": "全文概念名使用 [[wikilink]]", "type": "boolean"},
+    {"id": "no-file-write", "text": "不直接写文件，在终端展示草案", "type": "boolean"},
+    {"id": "diff-markers", "text": "标注了 [新增] 或 [修改] 部分", "type": "boolean"}
+  ]
+}

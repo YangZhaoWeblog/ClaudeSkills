@@ -1,0 +1,14 @@
+{
+  "eval_id": 2,
+  "eval_name": "distributed-new-moc",
+  "prompt": "synthesize CAP定理, Paxos, Raft",
+  "assertions": [
+    {"id": "new-moc-path", "text": "选择新建 MOC（路径C）", "type": "boolean"},
+    {"id": "has-core-question", "text": "有核心问题部分", "type": "boolean"},
+    {"id": "has-ascii-dag", "text": "有 ASCII DAG 知识地图", "type": "boolean"},
+    {"id": "has-relation-matrix", "text": "有概念关系矩阵（表格）", "type": "boolean"},
+    {"id": "has-emergence-2", "text": "涌现洞察存在且非平凡", "type": "boolean"},
+    {"id": "has-wikilinks-2", "text": "全文概念名使用 [[wikilink]]", "type": "boolean"},
+    {"id": "no-file-write-2", "text": "不直接写文件", "type": "boolean"}
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "eval_id": 2,
+  "eval_name": "cryptography",
+  "prompt": "decompose 密码学",
+  "assertions": [
+    {"id": "node-count", "text": "节点数 ≤15"},
+    {"id": "no-orphan", "text": "DAG 无孤儿节点"},
+    {"id": "entry-hub", "text": "有入口/枢纽标注"},
+    {"id": "red-reason", "text": "每个🔴节点有一句话理由"},
+    {"id": "legend", "text": "图例完整（🔴🟡🟢含义+统计）"},
+    {"id": "not-verbose", "text": "不冗余（无五维评估展开）"},
+    {"id": "vault-aware", "text": "与 vault 已有知识合理衔接"}
+  ]
+}

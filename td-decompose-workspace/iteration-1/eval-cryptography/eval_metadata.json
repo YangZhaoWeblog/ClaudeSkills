@@ -1,0 +1,14 @@
+{
+  "eval_id": 2,
+  "eval_name": "cryptography-decompose-with-background",
+  "prompt": "decompose 密码学，我有一些基础，学过对称加密和哈希",
+  "assertions": [
+    {"text": "节点数 ≤ 15", "type": "count_check"},
+    {"text": "有入口点和核心枢纽标注", "type": "structure_check"},
+    {"text": "每个节点有一句话定义", "type": "completeness_check"},
+    {"text": "DAG 无孤儿节点", "type": "graph_check"},
+    {"text": "🔴 节点有理由", "type": "quality_check"},
+    {"text": "反映用户已有基础（对称加密和哈希标为已掌握或距离近）", "type": "personalization_check"},
+    {"text": "有交错学习组合建议", "type": "feature_check"}
+  ]
+}

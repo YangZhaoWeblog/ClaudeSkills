@@ -1,0 +1,13 @@
+{
+  "eval_id": 2,
+  "eval_name": "distributed-new-moc",
+  "expectations": [
+    {"text": "选择新建 MOC（路径C）", "passed": true, "evidence": "输出开头声明 vault 无相关 MOC，决策为路径C新建"},
+    {"text": "有核心问题部分", "passed": true, "evidence": "核心问题：一群机器，网络会断、节点会崩，如何就某个值是什么达成不可撤销的一致"},
+    {"text": "有 ASCII DAG 知识地图", "passed": true, "evidence": "完整 ASCII DAG，从根本矛盾→CAP→CP/AP分支→Paxos/Raft→工业实现"},
+    {"text": "有概念关系矩阵（表格）", "passed": true, "evidence": "7维对比表：性质/回答什么/核心机制/容错模型/可用性代价/工程落地难度/工业代表"},
+    {"text": "涌现洞察存在且非平凡", "passed": true, "evidence": "4条：CAP是物理定律不是菜单、Raft≈费曼式简化、多数派交集是最深层结构、密码学→共识的隐藏桥梁"},
+    {"text": "全文概念名使用 [[wikilink]]", "passed": true, "evidence": "CAP定理/Paxos/Raft/共识算法/前向保密等均用 [[]] 包裹"},
+    {"text": "不直接写文件", "passed": true, "evidence": "输出保存在测试目录，未写入 3.MOC/"}
+  ]
+}

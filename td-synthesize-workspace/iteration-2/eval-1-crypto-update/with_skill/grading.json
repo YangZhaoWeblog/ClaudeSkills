@@ -1,0 +1,1 @@
+{"eval_id": 1, "expectations": [{"text": "不含过程信息", "passed": true, "evidence": "无扫描文件描述"}, {"text": "无 Phase 编号", "passed": true, "evidence": "输出中无 Phase 0/1/2"}, {"text": "决策理由一句话", "passed": true, "evidence": "第一行即决策"}, {"text": "只展示变更部分", "passed": true, "evidence": "3处变更标注，51行 vs 上轮229行"}, {"text": "data-ink ratio 高", "passed": true, "evidence": "每行传递信息，无填充文字"}]}
