@@ -10,6 +10,9 @@ description: >
   不是"单个概念的深度学习"（那是 thinkdifference-learn-deep），
   也不是"从文章中提取原子笔记"（那是 thinkdifference-extract-atoms）。
 user_invocable: true
+metadata:
+  author: yangzhao
+  version: 1.0.0
 ---
 
 # 知识缝合器 / MOC 生成器

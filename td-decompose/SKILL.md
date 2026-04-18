@@ -9,6 +9,9 @@ description: >
   注意：诊断结果可能是"不需要拆分，直接 learn-deep"。
   这个 skill 处理的是"主题级判断"，不是"文章级原子提取"（那是 thinkdifference-extract-atoms 的工作）。
 user_invocable: true
+metadata:
+  author: yangzhao
+  version: 1.0.0
 ---
 
 # 学习粒度诊断器
