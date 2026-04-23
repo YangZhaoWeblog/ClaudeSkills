@@ -26,15 +26,15 @@ metadata:
 
 ## 节点识别协议
 
-**不依赖颜色**，只靠文本结构和 `<!--card-->` 标记：
+**不依赖颜色**，只靠文本结构和节点顶层 JSON 字段：
 
 | 节点角色 | 识别特征 | 本 skill 处理方式 |
 |---|---|---|
-| 摘录节点（annotator 原生） | 含 `<!--card:{"anc":"..."}-->`，文本无裸 `---`，且剔除 `<!--card:...-->` 标记后剩余文本 > 30 字或含 `？` | **精炼 + 重排** |
-| 短摘录节点（原文即核心句） | 含 `<!--card:{"anc":"..."}-->`，文本无裸 `---`，且剔除 `<!--card:...-->` 标记后剩余文本 ≤ 30 字且不含 `？` | **跳过精炼，直接重排** |
+| 摘录节点（annotator 原生） | 节点有顶层字段 `canvasMargin: { anc: "..." }`，文本无裸 `---`，且文本 > 30 字或含 `？` | **精炼 + 重排** |
+| 短摘录节点（原文即核心句） | 节点有顶层字段 `canvasMargin: { anc: "..." }`，文本无裸 `---`，且文本 ≤ 30 字且不含 `？` | **跳过精炼，直接重排** |
 | 已精炼骨架 | 文本有裸 `---`，`---` 前是陈述/概念句 | 跳过精炼，参与重排 |
-| Anki 卡片 | 文本有裸 `---`，`---` 前是 `[角度]` 问句；或含 `<!--card:{"id":数字}-->` | 跳过（不归本 skill 管） |
-| 分支标题 | 短加粗文本 `**...**`，无 `---`，无 `<!--card-->` | 跳过，可能被重排覆盖 |
+| Anki 卡片 | 文本有裸 `---`，`---` 前是 `[角度]` 问句；或节点有顶层字段 `canvas2anki: { id: number }` | 跳过（不归本 skill 管） |
+| 分支标题 | 短加粗文本 `**...**`，无 `---`，无 `canvasMargin` / `canvas2anki` 字段 | 跳过，可能被重排覆盖 |
 | root 节点 | 文本是单句标题且无 `---`，`x` 坐标最小（通常 0），无入边 | 保留，作为树根 |
 | 其他 | `type != "text"`，或不匹配以上任何条 | 跳过 |
 
@@ -49,15 +49,18 @@ metadata:
 1. 用户直接给了 canvas 文件名 → 用它
 2. 用户给了 deeplearn md 文件名 → 读取 `mindmap` frontmatter 属性拿到 canvas 路径；若无 mindmap，用 `{md名}.canvas`（md 同目录）
 
-### 步骤 1：读取 canvas，分类节点 + 存档标记
+### 步骤 1：读取 canvas，分类节点 + 存档元数据
 
-用 `obsidian read file="canvas名"` 读取 canvas JSON，按"节点识别协议"分类所有节点。
+用 `obsidian read file="canvas名"` 读取 canvas JSON，按“节点识别协议”分类所有节点。
 
-**同时提取并存档所有 `<!--card:{...}-->` 标记**（写前存档，用于步骤 6 验证）：
+**同时存档所有节点的元数据字段**（写前存档，用于步骤 6 验证）：
 ```python
-import re
-card_markers_before = {
-    n["id"]: re.findall(r'<!--card:\{.*?\}-->', n.get("text",""), re.DOTALL)
+import json, copy
+metadata_before = {
+    n["id"]: {
+        "canvasMargin": copy.deepcopy(n.get("canvasMargin")),
+        "canvas2anki": copy.deepcopy(n.get("canvas2anki")),
+    }
     for n in canvas["nodes"]
 }
 ```
@@ -93,9 +96,9 @@ card_markers_before = {
 - 中文为主，术语保留英文
 
 **跳过精炼的条件（原文即核心句）**：
-剔除 `<!--card:...-->` 标记后，满足以下**任一**条件则跳过精炼、直接参与重排（标记本身不动）：
-1. 剩余文本 ≤ 30 字，且不含 `？`
-2. 生成的核心句与原文实质相同（strip_markdown + strip_card_marker 后语义一致）
+满足以下**任一**条件则跳过精炼、直接参与重排（元数据字段不动）：
+1. 文本 ≤ 30 字，且不含 `？`
+2. 生成的核心句与原文实质相同（strip_markdown 后语义一致）
 
 **正反 schema**：
 
@@ -116,8 +119,8 @@ card_markers_before = {
 精炼核心句
 ---
 原有摘录内容（一个字符不改）
-<!--card:{"anc":"xyz"}-->（位置不动）
 ```
+节点的顶层字段 `canvasMargin: { anc: "..." }` 保持不动。
 
 ### 步骤 3：批量精炼剩余节点
 
@@ -132,19 +135,19 @@ card_markers_before = {
 
 **Step B：复用检查（优先复用，禁止新建同义节点）**
 查找现有节点 N，满足全部三条：
-1. N 含 `<!--card:{"anc":"..."}-->`
-2. `strip_markdown(strip_card_marker(N.text))` 与 T 语义等价或包含关系
+1. N 有顶层字段 `canvasMargin: { anc: "..." }`
+2. `strip_markdown(N.text)` 与 T 语义等价或包含关系
 3. N 尚未被分配为其他分支的子节点
 
 - **找到 N** → `[复用]` N 为分支节点，N 升至分支层（x=280），N 从子节点列表移除
 - **未找到** → `[新建]` 分支标题节点，文本 = `**T**`
 
-**复用正反例**（比较前必须先 strip）：
+**复用正反例**（比较前必须先 strip_markdown）：
 
 | 候选分支名 T | 现有节点文本 | strip 后 | 结论 |
 |---|---|---|---|
-| 通信维度 | `**通信维度**：\n<!--card:...-->` | `通信维度：` | ✅ 复用 |
-| FLP 不可能性定理 | `**FLP 不可能性定理**（FLP impossibility）\n<!--card:...-->` | `FLP 不可能性定理（FLP impossibility）` | ✅ 复用 |
+| 通信维度 | `**通信维度**：`（节点有 `canvasMargin` 字段） | `通信维度：` | ✅ 复用 |
+| FLP 不可能性定理 | `**FLP 不可能性定理**（FLP impossibility）`（节点有 `canvasMargin` 字段） | `FLP 不可能性定理（FLP impossibility）` | ✅ 复用 |
 | 时序保证 | （无匹配节点） | — | ❌ 新建 |
 
 **归类方案输出**（区分 `[复用]`/`[新建]`，让用户一眼看到）：
@@ -170,7 +173,7 @@ root：[root 文本 或 无]
 步骤 4 归类方案用户确认后，**生成并执行以下 Python 脚本**（根据归类结果填入 `LAYOUT` 和 `REUSE_IDS`，其余代码结构不变）：
 
 ```python
-import json, re, uuid
+import json, copy, uuid
 
 PATH = "<canvas 文件绝对路径>"
 
@@ -202,9 +205,13 @@ GAP_BRANCH = 60   # 分支间距
 with open(PATH, 'r', encoding='utf-8') as f:
     canvas = json.load(f)
 
-# 写前存档 card 标记
-card_markers_before = {
-    n["id"]: re.findall(r'<!--card:\{.*?\}-->', n.get("text",""), re.DOTALL)
+# 写前存档元数据字段
+import copy
+metadata_before = {
+    n["id"]: {
+        "canvasMargin": copy.deepcopy(n.get("canvasMargin")),
+        "canvas2anki": copy.deepcopy(n.get("canvas2anki")),
+    }
     for n in canvas["nodes"]
 }
 
@@ -310,16 +317,20 @@ for e in result["edges"]:
 
 ancs = []
 for n in result["nodes"]:
-    ancs += re.findall(r'"anc":"([^"]+)"', n.get("text",""))
+    cm = n.get("canvasMargin", {})
+    if isinstance(cm, dict) and "anc" in cm:
+        ancs.append(cm["anc"])
 dups = [a for a in set(ancs) if ancs.count(a) > 1]
 if dups: errors.append(f"重复 anc: {dups}")
 
 for n in result["nodes"]:
     nid = n["id"]
-    if nid in card_markers_before:
-        after = re.findall(r'<!--card:\{.*?\}-->', n.get("text",""), re.DOTALL)
-        if card_markers_before[nid] != after:
-            errors.append(f"card 标记被篡改: {nid}")
+    if nid in metadata_before:
+        before = metadata_before[nid]
+        after_cm = n.get("canvasMargin")
+        after_ca = n.get("canvas2anki")
+        if before["canvasMargin"] != after_cm or before["canvas2anki"] != after_ca:
+            errors.append(f"元数据字段被篡改: {nid}")
 
 if errors:
     print("❌ 验证失败：")
@@ -333,14 +344,14 @@ else:
 
 ## 硬约束
 
-1. **`<!--card:{...}-->` 只读**：内容不写、不删、不改、不移位
+1. **元数据字段只读**：已有节点的 `canvasMargin` 和 `canvas2anki` 顶层字段不写、不删、不改
 2. **文本只插入不修改**：只在最前面加核心句 + `---`，原文一字不改
 3. **禁止重复精炼**：核心句与原文实质相同则不插入
 4. **用 Python json.dump 写入**：不用 Write 工具直接写 JSON
 5. **已精炼节点跳过精炼**：有裸 `---` 的节点不重复处理
 6. **Anki 卡片节点不参与重排**：位置不动，其 edge 也不动
 7. **归类方案必须用户确认**：无论节点多少
-8. **优先复用，禁止新建同义节点**：含 `<!--card-->` 且语义等价的现有节点直接升为分支，不另建
+8. **优先复用，禁止新建同义节点**：有 `canvasMargin` 字段且语义等价的现有节点直接升为分支，不另建
 9. **验证脚本不可跳过**：dry_run=true 也跑，失败必须报告
 
 ---
