@@ -2,19 +2,21 @@
 name: canvas-refine
 description: >
   整理 canvas 里散落的摘录节点：为每个摘录生成精炼核心句（概念名/结论句/对比句），
-  用 --- 隔开后插入节点最前面，再将所有节点重排为树形结构。
+  用 --- 隔开后插入节点最前面，再将所有节点重排为多级树形结构（非平铺）。
   理解过程的工具，不制卡。
   当用户说"帮我整理脑图"、"整理摘录"、"精炼节点"、"canvas 整理"、
   "把摘录整理成树形"时触发。
 user_invocable: true
 metadata:
   author: thinkdifference
-  version: 1.2.0
+  version: 2.0.0
 ---
 
 # Canvas 整理师
 
-你是 Canvas 整理师。把散落的摘录节点精炼并重排为清晰的树形结构。不制卡，只整理。
+你是 Canvas 整理师。把散落的摘录节点精炼并重排为**多级树形结构**。不制卡，只整理。
+
+核心目标：产出的脑图应该反映**知识本身的逻辑关系**（因果链、包含关系、递进关系），而不是原文的叙事顺序。原文结构可参考，但不是真理。
 
 ---
 
@@ -44,14 +46,16 @@ metadata:
 
 ## 执行流程
 
-### 步骤 0：定位 canvas
+### 步骤 0：定位 canvas + 读取 md 原文
 
 1. 用户直接给了 canvas 文件名 → 用它
 2. 用户给了 deeplearn md 文件名 → 读取 `mindmap` frontmatter 属性拿到 canvas 路径；若无 mindmap，用 `{md名}.canvas`（md 同目录）
 
+**同时读取 md 原文**——后续步骤 4 需要原文的段落结构作为层次推断的参考。
+
 ### 步骤 1：读取 canvas，分类节点 + 存档元数据
 
-用 `obsidian read file="canvas名"` 读取 canvas JSON，按“节点识别协议”分类所有节点。
+用 `obsidian read file="canvas名"` 读取 canvas JSON，按"节点识别协议"分类所有节点。
 
 **同时存档所有节点的元数据字段**（写前存档，用于步骤 6 验证）：
 ```python
@@ -126,20 +130,43 @@ metadata_before = {
 
 对剩余待精炼节点批量生成核心句。全部完成后进入下一步。
 
-### 步骤 4：语义归类 + 复用检查（无论节点数量，都先确认）
+### 步骤 4：多级树形归类（核心改进）
 
-读完所有节点，按**语义相关性**归类。每个分支执行以下两步：
+读完所有节点，构建**多级树形结构**（不是平铺分组）。
 
-**Step A：归纳上位概念**
-「这批节点的共同上位概念是什么？」→ 得到候选分支名 T
+#### Step A：读 md 原文，提取叙事结构作为参考
 
-**Step B：复用检查（优先复用，禁止新建同义节点）**
+md 原文的段落嵌套、出现顺序、因果词是层次推断的**参考**（不是真理）。
+
+#### Step B：启发式层次判定
+
+对每对节点 (A, B)，按以下规则判定父子关系（优先级从高到低）：
+
+| 优先级 | 规则 | 判定 |
+|--------|------|------|
+| 1 | A 在 md 原文中是 B 所在段落的上位标题/概念 | A 是 B 的父节点 |
+| 2 | md 原文中 B 紧跟在 A 之后，且 B 以"所以/因此/这意味着/换句话说"开头 | B 是 A 的子节点（推论） |
+| 3 | A 和 B 讨论同一概念的不同方面，无因果词 | A 和 B 并列 |
+| 4 | 以上都不确定 | 并列（保守策略），标记为 `⚠️待确认` |
+
+**因果链正反例**：
+
+| 节点 A | 节点 B | 判定 | 理由 |
+|--------|--------|------|------|
+| GST 前保安全性 | GST 后保活性 | A→B 因果链 | B 是 A 的对称推论 |
+| GST 后保活性 | 安全性全时活性 | A→B 推论 | B 是 A+前文的总结 |
+| 崩溃故障 | 拜占庭故障 | 并列 | 同层不同类型 |
+| 同步模型 | 异步模型 | 并列 | 同层不同类型 |
+| 篡改不是改一个点 | 重做成本 | A→B 因果链 | B 是 A 的后果 |
+
+#### Step C：复用检查（优先复用，禁止新建同义节点）
+
 查找现有节点 N，满足全部三条：
 1. N 有顶层字段 `canvasMargin: { anc: "..." }`
-2. `strip_markdown(N.text)` 与 T 语义等价或包含关系
+2. `strip_markdown(N.text)` 与候选分支名 T 语义等价或包含关系
 3. N 尚未被分配为其他分支的子节点
 
-- **找到 N** → `[复用]` N 为分支节点，N 升至分支层（x=280），N 从子节点列表移除
+- **找到 N** → `[复用]` N 为分支节点
 - **未找到** → `[新建]` 分支标题节点，文本 = `**T**`
 
 **复用正反例**（比较前必须先 strip_markdown）：
@@ -150,27 +177,61 @@ metadata_before = {
 | FLP 不可能性定理 | `**FLP 不可能性定理**（FLP impossibility）`（节点有 `canvasMargin` 字段） | `FLP 不可能性定理（FLP impossibility）` | ✅ 复用 |
 | 时序保证 | （无匹配节点） | — | ❌ 新建 |
 
-**归类方案输出**（区分 `[复用]`/`[新建]`，让用户一眼看到）：
+#### Step D：精炼规则与节点角色
+
+树形确定后，根据节点在树中的角色决定精炼策略：
+
+| 节点角色 | 判定条件 | 精炼策略 |
+|----------|----------|----------|
+| 叶子节点 | 无子节点 | 精炼句 + `---` + 原文 |
+| 非叶子节点 | 有子节点 | 只保留短标题（≤30字），不加原文 |
+
+**正反例**：
+
+| 节点 | 角色 | 处理 |
+|------|------|------|
+| "三种通信模型" | 非叶子（下有同步/异步/半同步） | 只留"三种通信模型" |
+| "安全性分析" | 非叶子（下有篡改成本/局限性） | 只留"安全性分析" |
+| "GST 前延迟任意大，GST 后 Δ 内到达" | 叶子 | 精炼句 + --- + 原文 |
+| "沉默与延迟不可区分" | 叶子 | 精炼句 + --- + 原文 |
+
+#### Step E：输出多级树形草案
+
+输出格式（区分 `[复用]`/`[新建]`/`⚠️待确认`）：
 ```
-拟归类方案：
+拟树形方案：
 ├── [复用] 通信维度 (id: 70349a97...)
 │   ├── 同步模型
+│   │   └── Δ太小太大
 │   ├── 异步模型
-│   └── ...
+│   │   ├── 沉默与延迟不可区分
+│   │   └── 不依赖网络假设
+│   └── 半同步模型
+│       ├── 半同步假设
+│       ├── GST 定义
+│       │   └── GST 前后行为
+│       ├── GST 前保安全性
+│       │   └── GST 后推进 ← ⚠️待确认（因果链 or 并列？）
+│       │       └── 安全性全时活性
+│       └── GST 永不来
 ├── [复用] 故障维度 (id: 90ee6172...)
-│   └── ...
-├── [新建] 时序保证
 │   └── ...
 
 root：[root 文本 或 无]
+
+⚠️ 标记说明：有 N 处层次关系不确定，已标记。请确认或调整。
 确认后写入？
 ```
 
-用户点头再进入步骤 5。
+如果 `⚠️待确认` 标记 ≥ 3 处，额外生成一个替代方案供用户选择。
+
+用户确认后进入步骤 5。
 
 ### 步骤 5/6：生成布局脚本 + 写入 + 验证
 
-步骤 4 归类方案用户确认后，**生成并执行以下 Python 脚本**（根据归类结果填入 `LAYOUT` 和 `REUSE_IDS`，其余代码结构不变）：
+步骤 4 归类方案用户确认后，**生成并执行以下 Python 脚本**（根据归类结果填入 `LAYOUT`，其余代码结构不变）：
+
+**布局参数（预留四列，为后续制卡留空间）**：
 
 ```python
 import json, copy, uuid
@@ -180,33 +241,37 @@ PATH = "<canvas 文件绝对路径>"
 # ── 由归类结果填入 ──────────────────────────────────────────
 ROOT_ID = "<root 节点 id，无则 None>"
 
-# 每个分支：("分支名或复用节点id", [子节点id列表], is_reuse)
-# is_reuse=True 时第一个字段是现有节点 id，False 时是新建分支的文本
-LAYOUT = [
-    ("70349a97ae76689a", ["807e4a119fc12666", "444050fadb0aa24a", ...], True),   # [复用] 通信维度
-    ("90ee61729b3c126f", ["ddad64297f0749f8", ...],                    True),   # [复用] 故障维度
-    ("**时序保证**",     ["xxx", "yyy"],                               False),  # [新建]
-]
-
-# 需要保留原位不动的节点 id（图片节点、Quorum 等）
-KEEP_IDS = {"<id1>", "<id2>"}
+# 多级树形布局：每个节点 (id, children_list, is_reuse, depth)
+# depth 决定 x 列：depth=0 → root, depth=1 → 分支, depth=2 → 骨架, depth=3 → 子骨架
+# 数据结构为嵌套 tuple：(node_ref, [(child_ref, [...], is_reuse), ...], is_reuse)
+TREE = ...  # 由归类结果生成
 
 # Anki 卡片节点 id（不参与重排，edge 也不动）
 ANKI_IDS = {"<id>"}
 # ── 以上由归类结果填入 ──────────────────────────────────────
 
-# 布局参数（硬编码，不修改）
-ROOT_X, ROOT_W, ROOT_H       = 0,    220, 120
-BRANCH_X, BRANCH_W, BRANCH_H = 500,  160, 120
-NODE_X,   NODE_W,   NODE_H   = 1000, 220, 120
-GAP_NODE   = 20   # 同分支内节点间距
-GAP_BRANCH = 60   # 分支间距
+# 布局参数（硬编码，预留四列）
+COL_X = {
+    0: 0,      # root
+    1: 380,    # 分支标题
+    2: 760,    # 骨架
+    3: 1100,   # 子骨架
+}
+COL_W = {
+    0: 220,    # root
+    1: 180,    # 分支标题
+    2: 260,    # 骨架
+    3: 260,    # 子骨架
+}
+# 第四列 x=1460 预留给 canvas-make-cards 写入卡片
+NODE_H     = 60    # 非叶子节点高度
+LEAF_H     = 55    # 叶子节点高度
+GAP_NODE   = 20    # 同分支内节点间距
+GAP_BRANCH = 60    # 分支间距
 
-with open(PATH, 'r', encoding='utf-8') as f:
-    canvas = json.load(f)
+# ... 递归布局逻辑（按树的深度优先遍历分配 x/y）...
 
 # 写前存档元数据字段
-import copy
 metadata_before = {
     n["id"]: {
         "canvasMargin": copy.deepcopy(n.get("canvasMargin")),
@@ -215,129 +280,23 @@ metadata_before = {
     for n in canvas["nodes"]
 }
 
-id_to_node = {n["id"]: n for n in canvas["nodes"]}
+# ... 递归分配坐标、生成 edge（全部 right→left）...
+# ... 写入 + 验证 ...
+```
 
-new_nodes = []
-new_edges = []
+**布局规则**：
+- 所有 edge 统一 `fromSide: "right"`, `toSide: "left"`
+- 分支节点 y = 子节点组的垂直中心
+- root 节点 y = 所有分支的垂直中心
+- 第四列（x=1460, w=380）预留给卡片，本 skill 不写入任何节点到该列
 
-# 收集需保留的原有 edge
-keep_edge_ids = set()
-for e in canvas["edges"]:
-    if e["fromNode"] in ANKI_IDS or e["toNode"] in ANKI_IDS:
-        keep_edge_ids.add(e["id"])
-    if e["fromNode"] in KEEP_IDS or e["toNode"] in KEEP_IDS:
-        keep_edge_ids.add(e["id"])
-
-# ── 第一遍：为每个分支的子节点分配 y，记录每个分支块的 y 范围 ──
-# 子节点从上往下排，分支节点 y = 子节点组的垂直中心
-# 无子节点时分支节点独立占一格
-
-branch_blocks = []   # [(branch_id, branch_y, children_ys)]
-cur_y = 0
-
-for b_idx, (branch_ref, children, is_reuse) in enumerate(LAYOUT):
-    branch_id = branch_ref if is_reuse else str(uuid.uuid4()).replace("-","")[:16]
-
-    if children:
-        # 子节点 y 列表
-        child_ys = []
-        child_cur_y = cur_y
-        for nid in children:
-            child_ys.append(child_cur_y)
-            child_cur_y += NODE_H + GAP_NODE
-        child_cur_y -= GAP_NODE  # 最后一个不加间距
-
-        # 分支节点垂直居中对齐子节点组
-        children_total_h = len(children) * NODE_H + (len(children) - 1) * GAP_NODE
-        branch_y = cur_y + (children_total_h - BRANCH_H) // 2
-
-        branch_blocks.append((branch_id, branch_ref, is_reuse, branch_y, list(zip(children, child_ys))))
-        cur_y = child_cur_y + GAP_NODE + GAP_BRANCH
-    else:
-        # 无子节点，分支节点单独一行
-        branch_blocks.append((branch_id, branch_ref, is_reuse, cur_y, []))
-        cur_y += BRANCH_H + GAP_BRANCH
-
-cur_y -= GAP_BRANCH  # 去掉最后多余的间距
-
-# root 垂直居中对齐所有分支
-all_branch_ys = [b[3] for b in branch_blocks]
-root_y = (min(all_branch_ys) + max(all_branch_ys) + BRANCH_H - ROOT_H) // 2
-if ROOT_ID and ROOT_ID in id_to_node:
-    id_to_node[ROOT_ID].update({"x": ROOT_X, "y": root_y,
-                                  "width": ROOT_W, "height": ROOT_H})
-
-# ── 第二遍：写入坐标 + 生成 edge ──────────────────────────────
-for b_idx, (branch_id, branch_ref, is_reuse, branch_y, child_pairs) in enumerate(branch_blocks):
-    if is_reuse:
-        id_to_node[branch_id].update({"x": BRANCH_X, "y": branch_y,
-                                       "width": BRANCH_W, "height": BRANCH_H})
-    else:
-        new_nodes.append({"id": branch_id, "type": "text", "text": branch_ref,
-                           "x": BRANCH_X, "y": branch_y,
-                           "width": BRANCH_W, "height": BRANCH_H})
-
-    if ROOT_ID:
-        new_edges.append({"id": f"e-root-b{b_idx}", "fromNode": ROOT_ID,
-                           "fromSide": "right", "toNode": branch_id, "toSide": "left"})
-
-    for n_idx, (nid, node_y) in enumerate(child_pairs):
-        id_to_node[nid].update({"x": NODE_X, "y": node_y,
-                                  "width": NODE_W, "height": NODE_H})
-        new_edges.append({"id": f"e-b{b_idx}-n{n_idx}", "fromNode": branch_id,
-                           "fromSide": "right", "toNode": nid, "toSide": "left"})
-
-old_edges_to_keep = [e for e in canvas["edges"] if e["id"] in keep_edge_ids]
-canvas["nodes"] = list(id_to_node.values()) + new_nodes
-canvas["edges"] = old_edges_to_keep + new_edges
-
-# ── dry_run 控制 ─────────────────────────────────────────────
-DRY_RUN = False  # True 时只验证不写盘
-
-if not DRY_RUN:
-    with open(PATH, 'w', encoding='utf-8') as f:
-        json.dump(canvas, f, ensure_ascii=False, indent='\t')
-
-# ── 验证（强制，dry_run 也跑）────────────────────────────────
-with open(PATH, 'r', encoding='utf-8') as f:
-    result = json.load(f) if not DRY_RUN else canvas
-
-node_ids = {n["id"] for n in result["nodes"]}
-errors = []
-
-for e in result["edges"]:
-    if e["fromNode"] not in node_ids: errors.append(f"悬空 fromNode: {e['id']}")
-    if e["toNode"]   not in node_ids: errors.append(f"悬空 toNode: {e['id']}")
-
-edge_pairs = [(e["fromNode"], e["toNode"]) for e in result["edges"]]
-if len(edge_pairs) != len(set(edge_pairs)): errors.append("存在重复 edge")
-
-for e in result["edges"]:
-    if e["fromNode"] == e["toNode"]: errors.append(f"自环 edge: {e['id']}")
-
-ancs = []
+**验证（强制，dry_run 也跑）**：
+```python
+# ... 同原有验证逻辑 ...
+# 额外检查：无节点 x 落入预留卡片列（x=1460）
 for n in result["nodes"]:
-    cm = n.get("canvasMargin", {})
-    if isinstance(cm, dict) and "anc" in cm:
-        ancs.append(cm["anc"])
-dups = [a for a in set(ancs) if ancs.count(a) > 1]
-if dups: errors.append(f"重复 anc: {dups}")
-
-for n in result["nodes"]:
-    nid = n["id"]
-    if nid in metadata_before:
-        before = metadata_before[nid]
-        after_cm = n.get("canvasMargin")
-        after_ca = n.get("canvas2anki")
-        if before["canvasMargin"] != after_cm or before["canvas2anki"] != after_ca:
-            errors.append(f"元数据字段被篡改: {nid}")
-
-if errors:
-    print("❌ 验证失败：")
-    for err in errors: print(f"  - {err}")
-else:
-    print("✅ 验证通过")
-    print(f"  节点数: {len(result['nodes'])}，边数: {len(result['edges'])}")
+    if n.get("x") == 1460 and n["id"] not in ANKI_IDS:
+        errors.append(f"节点侵入卡片预留列: {n['id']}")
 ```
 
 ---
@@ -350,9 +309,43 @@ else:
 4. **用 Python json.dump 写入**：不用 Write 工具直接写 JSON
 5. **已精炼节点跳过精炼**：有裸 `---` 的节点不重复处理
 6. **Anki 卡片节点不参与重排**：位置不动，其 edge 也不动
-7. **归类方案必须用户确认**：无论节点多少
+7. **多级树形方案必须用户确认**：无论节点多少
 8. **优先复用，禁止新建同义节点**：有 `canvasMargin` 字段且语义等价的现有节点直接升为分支，不另建
 9. **验证脚本不可跳过**：dry_run=true 也跑，失败必须报告
+10. **非叶子节点只放短标题**：有子节点的节点不加精炼句+原文，只保留 ≤30 字的标题
+11. **层次判定保守策略**：不确定时默认并列，标记 `⚠️待确认`，不猜因果
+12. **预留卡片列**：x=1460 列不放任何骨架节点，留给 canvas-make-cards
+
+---
+
+## 正反模式（从优质脑图提取）
+
+### 正模式
+
+1. **骨架是推理链，不是平铺列表**
+   - ✅ GST 前安全性 → GST 后推进 → 安全性全时活性（因果链）
+   - ✅ 篡改不是改一个点 → 重做成本 → 哈希链局限性（推论链）
+
+2. **叶子精炼+原文，中间层只放短标题**
+   - ✅ "三种通信模型"（中间层，只四个字）
+   - ✅ "沉默与延迟不可区分 --- 原文..."（叶子，精炼+原文）
+
+3. **复用已有 canvasMargin 节点为分支**
+   - ✅ "通信维度"摘录节点升级为分支标题，保留跳转锚点
+
+### 反模式
+
+1. **平铺所有子节点到同一层级**
+   - ❌ GST 前安全性 / GST 后推进 / 安全性全时 并列在同一层
+   - 应该是因果链：A → B → C
+
+2. **给中间节点加精炼句**
+   - ❌ "三种通信模型 --- 通信模型是分布式系统的基础假设之一..."
+   - 中间节点只需要标题，不需要解释
+
+3. **新建与已有摘录同义的分支标题**
+   - ❌ 已有"通信维度"摘录节点，又新建"**通信模型**"标题节点
+   - 应该复用已有节点
 
 ---
 
@@ -365,7 +358,8 @@ else:
   - 跳过（Anki 卡片）：N 个
   - 复用为分支：N 个
   - 新建分支标题：N 个
-  - 树形层级：N 级
+  - 树形层级：N 级（最大深度）
+  - ⚠️ 待确认标记：N 处（已由用户确认）
   - 验证：全部通过
   canvas 文件：{路径}
 ```
