@@ -1,0 +1,76 @@
+{
+  "_comment_root": "canvas-refine tree_input schema。AI 归类后按此结构产出一个真实 json 文件传给脚本。注意 JSON 不支持行注释，字段名以 _comment_ 开头的用作文档、脚本会忽略。",
+
+  "root_id": "c284a51a1d4ca920",
+
+  "_comment_refinements": "节点 id → 精炼核心句。脚本会在节点文本前插入 '核心句\\n---\\n原文'。仅对 long_excerpt 类节点填写；短摘录/问句/已精炼/Anki 都不填。",
+  "refinements": {
+    "4640d2ef36d5cc6d": "物理时钟各自独立，从未对准",
+    "4ca9fc7f44782cc0": "手表可以对表，服务器时间不能对表"
+  },
+
+  "_comment_tree": "骨架树。节点有两种形式：(1) id 非空 = 复用 canvas 现有节点；(2) id=null + new_text = 新建分支标题节点（脚本自动生成 id）。children 为空 → 叶子。",
+  "tree": [
+    {
+      "id": null,
+      "new_text": "**物理时钟困境**",
+      "children": [
+        {
+          "id": "4640d2ef36d5cc6d",
+          "new_text": null,
+          "children": [
+            {
+              "id": "b2bcd316147d22b4",
+              "new_text": null,
+              "children": []
+            }
+          ]
+        },
+        {
+          "id": "4ca9fc7f44782cc0",
+          "new_text": null,
+          "children": []
+        }
+      ]
+    },
+    {
+      "id": null,
+      "new_text": "**happened-before（→ 关系）**",
+      "children": [
+        {
+          "id": "dcb85661e993ee59",
+          "new_text": null,
+          "children": []
+        },
+        {
+          "id": "9e63dc37792b812d",
+          "new_text": null,
+          "children": [
+            {"id": "37963766c4980b98", "new_text": null, "children": []},
+            {"id": "2ff2ff1d6fffa9e1", "new_text": null, "children": []},
+            {
+              "id": "8dae608f0b4f218b",
+              "new_text": null,
+              "children": [
+                {"id": "c8a5f5a046bca095", "new_text": null, "children": []}
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+
+  "_comment_orphan_ids": "被英文别名合并、冗余同义、被父节点吸收的节点 id，放入左侧 x<0 的孤儿 group；保留 canvasMargin 锚点。",
+  "orphan_ids": [
+    "66ec79796128fb70",
+    "30a79b6cb88bdacc",
+    "d6de3284b1aac134"
+  ],
+
+  "_comment_anki_ids": "已存在的 Anki 卡片节点 id（来自 --classify-only 输出的 anki_card 分类）。用于：(1) 保留其相关 edge 原样；(2) 卡片 y 跟随源骨架节点。",
+  "anki_ids": [],
+
+  "_comment_merged_en_ids": "因英文别名并入中文父节点而进孤儿的节点 id，必须是 orphan_ids 的子集；脚本据此校验 Assert 4。",
+  "merged_en_ids": []
+}
